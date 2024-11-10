@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Speech Arena</title>
+    <title>Talk Arena</title>
     <meta name="description" content="Distilling an End-to-End Voice Assistant from Speech Recognition Data Using Pretrained Models.">
 
     <!-- Facebook -->
     <meta property="og:url" content="https://salt-nlp.github.io/Speech-Arena-Project-Page/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Speech Arena">
-    <meta property="og:description" content="Distilling an End-to-End Voice Assistant from Speech Recognition Data Using Pretrained Models.">
+    <meta property="og:title" content="Talk Arena">
+    <meta property="og:description" content="Interactive Evaluation of Large Audio Models.">
     <meta property="og:image" content="https://diva-audio.github.io/static/images/hero.png">
 
     <!-- Twitter -->
@@ -17,7 +17,7 @@
     <meta property="twitter:domain" content="diva-audio.github.io">
     <meta property="twitter:url" content="https://salt-nlp.github.io/Speech-Arena-Project-Page/">
     <meta name="twitter:title" content="DiVA (Distilled Voice Assistant)">
-    <meta name="twitter:description" content="Distilling an End-to-End Voice Assistant from Speech Recognition Data Using Pretrained Models.">
+    <meta name="twitter:description" content="Interactive Evaluation of Large Audio Models.">
     <meta name="twitter:image" content="https://diva-audio.github.io/static/images/hero.png">
 
     <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
@@ -115,8 +115,8 @@
 	  <div class="columns is-centered">
             <div class="column has-text-centered">
               <h1 class="title is-1 publication-title" style="margin-bottom:0">
-		<img src="./static/speech-arena2.png" alt="A Cute Small Robot with DiVA Written on It's Chest" style="height: 10vw;"> Speech Arena</h1>
-	      <h2>Rethinking the Evaluation of Large Audio Models</h2>
+		<img src="./static/speech-arena2.png" alt="A Cute Small Robot with DiVA Written on It's Chest" style="height: 10vw;"> Talk Arena</h1>
+	      <h2>Interactive Evaluation of Large Audio Models</h2>
 	      
               <div class="is-size-5 publication-authors">
 		<span class="author-block">
@@ -167,14 +167,15 @@
 		<div class="container is-max-desktop">
 		  <div class="hero-body">
 		    <h4 class="subtitle has-text-centered">
-		      <span style="color: #820000">[TL;DR]</span> We evaluate <span
-          id="highlight"><b>large audio models</b></span> 
-          <br>using <span
-          id="highlight"><b>18 speech comprehension datasets</b></span> and an <span
-          id="highlight"><b>interactive arena platform</b></span>.</a>
+          <span style="color: #820000">[TL;DR]
+          </span> As AI Assistants' capability expands beyond text into other modalities like audio, they enable new forms of interactions between humans and AI. On the other hand, most benchmarks for audio processing primarily focus on transcribing and analyzing user speech. We introduce <span id="highlight"><b>Talk Arena</b></span>, an interactive open platform to evaluate Large Audio Models through <span id="highlight"><b>interations with users in real-world settings</b></span>. It helps to assess whether previous static benchmarks are valuable measures of model quality, or whether there is need for a new evaluation paradigm for Large Audio Models. We evaluate <span
+          id="highlight">large audio models</span> 
+          using <span
+          id="highlight"><b>15 speech comprehension datasets</b></span> and <span
+          id="highlight"><b>Talk Arena</b></span>.</a>
         </h4>
         <br>
-        <h3 class="subtitle has-text-centered">Try it out now: </h3>
+        <h3 class="subtitle has-text-centered" style="color: #820000"><b>Try it out now:</b> </h3>
         <a href="https://huggingface.co/WillHeld/DiVA-llama-3-v0-8b"
                        class="external-link button is-normal is-rounded is-dark">
                       <span class="icon">  
@@ -219,13 +220,11 @@
 	    <img src="./static/overview.png" alt="Description of the training pipeline. The trainable red modules are the Whisper Decoder, Query Tokens, and a Projection. The frozen Blue modules are the Whisper Encoder and all of Llama." style="width: 75vw;">
             <div class="content has-text-justified">
               <p>
-                <div class="columns is-centered has-text-centered"><p>Comparison between <b>Static Evaluation</b> and <b>Speech Arena</b>.</p></div>
+                <div class="columns is-centered has-text-centered"><p>Comparison between <b>Static Evaluation</b> and <b>Talk Arena</b>.</p></div>
 		
 		<br/><br/>
 
-		Recently large language models have gained greater capability in other modalities such as speech. Speech is a low-fraction interface and offers more opportunities of interaction with end users.
-                    There are many recent work trying to benchmark audio models with a set of carefully selected audio benchmarks. However, there lacks a platform to get real user interactions and preferences.
-                    To tackle this, we introduce Speech Arena, an open platform for evaluating Large Audio Models with pairwise human preferences. It helps to reveal insights on:
+		Recent efforts towards creating multimodal models have resulted in LLMs capable of processing audio inputs such as speech.  Speech is a low-friction interface which expands social and phonetic interaction opportunities with end users.  Prior work has benchmarked audio models on a set of disjoint static audio tests such as sarcasm or humor detection.  However such static benchmarks lack the complex dynamics of real user interactions and preferences.  Inspired by arena-style evaluations for text LLMs we introduce Speech Arena, an open platform for evaluating Large Audio Models with pairwise human preferences.  Speech Arena helps to reveal insights on:
                     <br><br>
                     <b>What use cases users are exploring with large audio models?</b> We can analyze user queries from the wild and compare the use case difference with traditional use cases of text LLMs.
                     <br><br>
@@ -253,15 +252,18 @@
             </div>
 	    <img src="./static/tasks.png" alt="Tasks and Datasets for Static Evaluation." style="height: 20vw;">
             <div class="content has-text-justified">
+              <br><br>
               <p>
-                To ensure robustness, we report the average of model performance using three different prompt variations. For public_sg_speech, openhermes, and alpaca datasets, we report the cfm. For other tasks, we report the macro F1 scores.
+                To ensure robustness, we report the average of model performance using three different prompt variations. For public_sg_speech, openhermes, and alpaca datasets, we report the <a href="https://arxiv.org/html/2402.11161v4">cfm</a> metric. For other tasks, we report the macro F1 scores.
 		
 	      </p>
             </div>
-	    <img src="./static/results.png" alt="Speech Translation results on COVOST2. Qwen 2 performs the strongest on the most tasks, with DiVA coming in at second." style="height: 30vw;">
+	    <img src="./static/results.png" alt="Static Evaluation Results." style="height: 24vw;">
             <div class="content has-text-justified">
               <p>
-                Close sourced models like <a href="https://arxiv.org/abs/2312.11805">Gemini</a> and <a href="https://arxiv.org/abs/2312.11805">GPT4o</a> generally tops the leaderboard. For open-sourced models, 
+                Close sourced models like <a href="https://arxiv.org/abs/2312.11805">Gemini</a> and <a href="https://arxiv.org/abs/2312.11805">GPT4o</a> generally tops the leaderboard. For open-sourced models, <a href="https://arxiv.org/abs/2407.10759">Qwen2-Audio</a> demonstrates outstanding performance on SpeechQA tasks and <a href="https://arxiv.org/abs/2410.02678">DiVA</a> shows excellent speech instruction following capability that outperforms all other models. 
+                <br>
+                We also perform evaluation for the sequential pipeline of <a href="https://arxiv.org/abs/2212.04356">Whisper</a> plus <a href="https://arxiv.org/abs/2407.21783">Llama3-8B-Instruct</a>. It shows relatively good performance for tasks like emotion recognition and speech QA, which means some of the data instances can be inferred from content only. However, for each and every task there are speech models outperforming it. This suggests that some information like emotion, relationship, and sarcasm can be embedded in vocal cues and requires understanding beyond content.
 
 	      </p>
             </div>
@@ -290,30 +292,31 @@
 	    <div class="content has-text-justified">
         <h3 class="title is-4">(A) User Preference</h3>
               <p>
-		As an initial effort, we collected over 500 votes using the arena with pairwise comparisons between Qwen2-Audio and DiVA (reported in <a href="https://arxiv.org/abs/2410.02678">Diva paper</a>).
+		As an initial effort, we collected over 500 votes using the talk arena for pairwise comparisons between Qwen2-Audio and DiVA (reported in <a href="https://arxiv.org/abs/2410.02678">Diva</a> paper).
         
   </p>
             </div>
 	    <img src="./static/user_study.svg" alt="QA results on Spoken Dialect QA and HeySQUAD. DiVA significantly (0.05) outperforms SALMONN and both Qwen Audio models." style="width: 40vw; height: 10vw;">
             <div class="content has-text-justified">
               <p>
-		DiVA is significantly preferred by users over Qwen2-Audio with a 72% win rate.
+		DiVA is significantly preferred by users over Qwen2-Audio with a <b>72%</b> win rate. We will continue to scale up the experiment with more interactions and model options.
 
 <h3 class="title is-4">(B) Comparison with Static Evaluation</h3>
-		We compare the result to that of static evaluation:
+		We compare the user preference result in interactive evaluation to that of static evaluation:
 	      </p>
             </div>
-	    <img src="./static/results.png" alt="Speech Translation results on COVOST2. Qwen 2 performs the strongest on the most tasks, with DiVA coming in at second." style="height: 30vw;">
+	    <img src="./static/results2.png" alt="Speech Translation results on COVOST2. Qwen 2 performs the strongest on the most tasks, with DiVA coming in at second." style="height: 15vw;">
             <div class="content has-text-justified">
               <p>
-    We can see that some static evaluation results align with the direction of user preference, for tasks like humor detection, emotion recognition, and relationship classification.
+                <br>
+    We can see that results on some of the static benchmarks align with the user preference, for tasks like <b>humor detection</b>, <b>emotion recognition</b>, <b>relationship classification</b> and <b>instruction following</b>.
 
 		<br/>
-Interestingly, for speech question answering tasks like cn-college-listen, Qwen2-Audio performs significantly better than DiVA but it is not reflective enought of the user preference.		
+Interestingly, for <b>speech question answering</b>, Qwen2-Audio performs better than DiVA datasets on both cn-college-listen and public_sg_speech datasets. However, this trend is <b>reversed</b> in the user preference results.		
 <h3 class="title is-4">(C) User Queries</h3>
 We also perform qualitative analysis for user voice queries and obtained some insights:
-<br>
-<b>Query Analysis.</b> 
+<br><br>
+<b>Topics of user queries.</b> 
 <br>
 We identify three common types of user queries:
 <br>
@@ -322,16 +325,14 @@ We identify three common types of user queries:
 2) <b>Knowledge expansion</b> questions like asking about theory of relativity. These queries need the audio model to be well equipped with a diverse and comprehensive knowledge base to provide factual and detailed information across a wide range of topics.
 <br>
 3) <b>Personal sharing</b> on recent dilemma, personal opinions and habits. These queries are often longer and more elaborated. To provide good responses, the voice assistant may need to make inferences about the users' tone and capture details well enough.
-<br>
+<br><br>
 <b>Difference from text queries.</b> 
 <br>
 Unlike how users interact with text-only LLMs through typing, we found some unique aspects in speech interaction:
 <br>
 1) <b>Background noises</b> like resume building tips, weather and time checking. These queries are mostly short (one sentence only). It usually requires the audio model to ask more about the context to provide a personalized response.
 <br>
-2) <b>Vocal cues</b> questions like asking about theory of relativity. These queries need the audio model to be well equipped with a diverse and comprehensive knowledge base to provide factual and detailed information across a wide range of topics.
-<br>
-3) <b>Personal sharing</b> on recent dilemma, personal opinions and habits. These queries are often longer and more elaborated. To provide good responses, the voice assistant may need to make inferences about the users' tone and capture details well enough.
+2) <b>Vocal cues</b> like pauses, laghter, tone, pitch, and accent. These features deliver social information about the speaker's emotion and identity beyond words.
 
 </p>
             </div>
@@ -366,8 +367,8 @@ Unlike how users interact with text-only LLMs through typing, we found some uniq
       <div class="container is-max-desktop content">
 	<h2 class="title">BibTeX</h2>
 	<pre><code>
-    @misc{li2024speecharena,
-      title={Speech Arena: Rethinking the Evaluation of Large Audio Models}, 
+    @misc{li2024talkarena,
+      title={Talk Arena: Interactive Evaluation of Large Audio Models}, 
       author={Minzhi Li and Will Held and Michael Ryan and Hao Zhu and Diyi Yang},
       year={2024}
     }
@@ -381,7 +382,7 @@ Unlike how users interact with text-only LLMs through typing, we found some uniq
 	<div class="columns is-centered">
 	  <div class="column is-8">
             <div class="content">
-	      <p> We appreciate <a href="https://x.com/dlwh">David Hall</a> for his advice and code review on the core Levanter Framework and implementation of Audio Infrastructure in Levanter. We additionally appreciate the <a href="https://sites.research.google/trc/about/">TPU Research Cloud</a> for their free computing support without which this projet would not be possible. Further computing support was provided by <a href="https://hai.stanford.edu/call-google-cloud-credit-proposals">Stanford HAI Google Cloud Credit Program</a>
+	      <p> We appreciate the computing support provided by <a href="https://hai.stanford.edu/call-google-cloud-credit-proposals">Stanford HAI Google Cloud Credit Program</a>
 	      
               <p>
 		This website is licensed under a <a rel="license"
