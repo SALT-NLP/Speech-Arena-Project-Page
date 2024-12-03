@@ -66,7 +66,7 @@
       text-align: center;
       }
       table {
-      max-width: 60%;
+      max-width: 100%;
       border-collapse: collapse;
       margin: 0 auto;
       margin-top: 20px;
@@ -185,7 +185,7 @@
             <div class="columns is-centered has-text-centered">
                <div class="column is-six-fifths">
                   <h2 class="title is-3">Overview</h2>
-                  <img src="./static/overview4.png" alt="Description of the training pipeline. The trainable red modules are the Whisper Decoder, Query Tokens, and a Projection. The frozen Blue modules are the Whisper Encoder and all of Llama." style="width: 75vw;">
+                  <img src="./static/overview_222.png" alt="Description of the training pipeline. The trainable red modules are the Whisper Decoder, Query Tokens, and a Projection. The frozen Blue modules are the Whisper Encoder and all of Llama." style="width: 75vw;">
                   <div class="content has-text-justified">
                      <p>
                      <div class="columns is-centered has-text-centered">
@@ -219,65 +219,127 @@
                   </p>
                </div>
                <!-- <img src="./static/results4.png" alt="Static Evaluation Results." style="height: 66vw;"> -->
-               <div class="content has-text-justified" style="width: 100%; margin: 0 auto; text-align: center;overflow-x: auto; place-items: center;">
+               <div class="columns is-centered has-text-centered" width="2000px"> 
+                  <!-- <img src="./static/results4.png" alt="Static Evaluation Results." style="height: 66vw;"> -->
                   <style type="text/css">
-                     .tg  {border-collapse:collapse;border-spacing:0;}
-                     .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-                     overflow:hidden;padding:10px 5px;word-break:normal;}
-                     .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-                     font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-                     .tg .tg-qs6o{background-color:#E7EAED;border-color:inherit;text-align:center;vertical-align:top}
-                     .tg .tg-4rvp{background-color:#CCD2D8;border-color:inherit;text-align:center;vertical-align:top}
-                     .tg .tg-nlmt{background-color:#156082;border-color:inherit;text-align:center;vertical-align:top}
-                  </style>
-                  <table class="tg">
-                     <thead>
-                        <tr>
-                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Task</span></th>
-                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Dataset</span></th>
-                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Task</span></th>
-                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Dataset</span></th>
-                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Task</span></th>
-                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Dataset</span></th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td class="tg-4rvp"><span style="font-weight:bold;color:black">Humor Detection</span></td>
-                           <td class="tg-4rvp"><a href="https://aclanthology.org/D19-1211/" target="_blank" rel="noopener noreferrer">URFUNNY</a></td>
-                           <td class="tg-4rvp"><span style="font-weight:bold;color:black">Language Identification</span></td>
-                           <td class="tg-4rvp"><a href="https://arxiv.org/abs/2007.10310" target="_blank" rel="noopener noreferrer">Covost2</a></td>
-                           <td class="tg-4rvp"><span style="font-weight:bold;color:black">Speech Grounding</span></td>
-                           <td class="tg-4rvp"><a href="https://ieeexplore.ieee.org/document/7178964" target="_blank" rel="noopener noreferrer">Librispeech</a></td>
-                        </tr>
-                        <tr>
-                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Sarcasm Detection</span></td>
-                           <td class="tg-qs6o"><a href="https://aclanthology.org/P19-1455/" target="_blank" rel="noopener noreferrer">MUSTARD</a></td>
-                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Relationship Classification</span></td>
-                           <td class="tg-qs6o"><a href="https://aclanthology.org/L18-1592/" target="_blank" rel="noopener noreferrer">CallHome</a></td>
-                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Speech Entity Recognition</span></td>
-                           <td class="tg-qs6o"><a href="https://aclanthology.org/2020.emnlp-main.588/" target="_blank" rel="noopener noreferrer">SLURP</a></td>
-                        </tr>
-                        <tr>
-                           <td class="tg-4rvp">  <span style="font-weight:bold;color:black">Intent Detection</span></td>
-                           <td class="tg-4rvp"><a href="https://aclanthology.org/2020.emnlp-main.588/" target="_blank" rel="noopener noreferrer">SLURP</a></td>
-                           <td class="tg-4rvp"><span style="font-weight:bold;color:black">Accent Classification</span></td>
-                           <td class="tg-4rvp"><a href="https://arxiv.org/abs/1912.06670" target="_blank" rel="noopener noreferrer">Commonvoice</a></td>
-                           <td class="tg-4rvp"><span style="font-weight:bold;color:black">Instruction Following</span></td>
-                           <td class="tg-4rvp"><a href="https://crfm.stanford.edu/2023/03/13/alpaca.html" target="_blank" rel="noopener noreferrer">Alpaca</a><span style="color:black">, </span><a href="https://huggingface.co/datasets/teknium/OpenHermes-2.5" target="_blank" rel="noopener noreferrer">Openhermes</a></td>
-                        </tr>
-                        <tr>
-                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Age/Gender Classification</span>   </td>
-                           <td class="tg-qs6o"><a href="https://arxiv.org/abs/1912.06670" target="_blank" rel="noopener noreferrer">Commonvoice</a><span style="color:black">, </span><a href="https://arxiv.org/abs/2408.12734" target="_blank" rel="noopener noreferrer">FairSpeech</a> </td>
-                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Emotion Recognition</span></td>
-                           <td class="tg-qs6o"><a href="https://sail.usc.edu/iemocap/Busso_2008_iemocap.pdf" target="_blank" rel="noopener noreferrer">IEMOCAP</a><span style="color:black">, </span><a href="https://arxiv.org/abs/1810.02508" target="_blank" rel="noopener noreferrer">MELD</a></td>
-                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Speech QA</span></td>
-                           <td class="tg-qs6o"><a href="https://arxiv.org/abs/2406.16020" target="_blank" rel="noopener noreferrer">CN-College-Listen</a><span style="color:black">, </span><a href="https://arxiv.org/abs/2406.16020" target="_blank" rel="noopener noreferrer">Public_sg_speech</a>  </td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-               <!-- <img src="./static/tasks22.png" alt="Tasks and Datasets for Static Evaluation." style="height: 23vw;"> -->
+                    .tg  {border-collapse:collapse;border-spacing:0;}
+                    .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                      overflow:hidden;padding:10px 5px;word-break:normal;}
+                    .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                      font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+                    .tg .tg-9b50{background-color:#e7eaed;border-color:#000000;color:#156082;text-align:center;vertical-align:top}
+                    .tg .tg-m9te{background-color:#ccd2d8;border-color:#000000;font-weight:bold;text-align:center;vertical-align:middle}
+                    .tg .tg-xqng{background-color:#156082;border-color:#000000;color:#FFF;font-weight:bold;text-align:center;vertical-align:top}
+                    .tg .tg-98u5{background-color:#ccd2d8;border-color:#000000;text-align:center;vertical-align:top}
+                    .tg .tg-qw55{background-color:#ccd2d8;border-color:#000000;color:#156082;text-align:center;vertical-align:top}
+                    .tg .tg-52ex{background-color:#CCD2D8;border-color:#000000;color:#156082;text-align:center;vertical-align:top}
+                    .tg .tg-bdqg{background-color:#E7EAED;border-color:#000000;text-align:center;vertical-align:top}
+                    .tg .tg-3031{background-color:#156082;border-color:#000000;text-align:center;vertical-align:top}
+                    .tg .tg-7pxq{background-color:#CCD2D8;border-color:#000000;font-weight:bold;text-align:center;vertical-align:middle}
+                    .tg .tg-gv6g{background-color:#e7eaed;border-color:#000000;text-align:center;vertical-align:top}
+                    .tg .tg-eojn{background-color:#CCD2D8;border-color:#000000;text-align:center;vertical-align:top}
+                    .tg .tg-m918{background-color:#E7EAED;border-color:#000000;color:#156082;text-align:center;vertical-align:top}
+                    .tg .tg-4o2h{background-color:#e7eaed;border-color:#000000;font-weight:bold;text-align:center;vertical-align:middle}
+                    .tg .tg-kduv{background-color:#e7eaed;border-color:#000000;font-weight:bold;text-align:center;vertical-align:top}
+                    </style>
+                    <table class="tg"><thead>
+                      <tr>
+                        <th class="tg-xqng"><span style="font-weight:bold;color:white">Category</span></th>
+                        <th class="tg-3031"><span style="font-weight:bold;color:white">Task</span></th>
+                        <th class="tg-3031"><span style="font-weight:bold;color:white">Dataset</span></th>
+                        <th class="tg-3031"><span style="font-weight:bold;color:white">Description</span></th>
+                      </tr></thead>
+                    <tbody>
+                      <tr>
+                        <td class="tg-7pxq" rowspan="5"><span style="font-weight:bold;color:black">Cognitive State Detection</span></td>
+                        <td class="tg-gv6g"><span style="font-weight:bold;color:black">Humor Detection</span></td>
+                        <td class="tg-52ex"><a href="https://aclanthology.org/D19-1211/" target="_blank" rel="noopener noreferrer">URFUNNY</a></td>
+                        <td class="tg-eojn"><span style="color:black">URFUNNY dataset consists of TED talk videos labeled with binary humor labels. We extract the audio features from videos to create a test set of 994 instances.</span></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-gv6g"><span style="font-weight:bold;color:black">Sarcasm Detection</span></td>
+                        <td class="tg-m918"><a href="https://aclanthology.org/P19-1455/" target="_blank" rel="noopener noreferrer">MUSTARD</a></td>
+                        <td class="tg-bdqg"><span style="color:black">MUSTARD consists of audiovisual utterances in TV shows annotated with sarcasm labels. We extract the audio features from videos to create a test set of 690 instances.</span></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-gv6g">  <span style="font-weight:bold;color:black">Pragmatic Intent Detection</span></td>
+                        <td class="tg-52ex"><a href="https://aclanthology.org/2020.emnlp-main.588/" target="_blank" rel="noopener noreferrer">SLURP</a></td>
+                        <td class="tg-eojn"><span style="color:black">SLURP consists of commands towards robot assistant formulated by crowdworkers. We take 753 instances for four different intents in the test set.</span></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-4o2h" rowspan="2"><span style="font-weight:bold;color:black">Emotion Recognition</span></td>
+                        <td class="tg-m918"><a href="https://sail.usc.edu/iemocap/Busso_2008_iemocap.pdf" target="_blank" rel="noopener noreferrer">IEMOCAP</a></td>
+                        <td class="tg-bdqg"><span style="font-weight:400;font-style:normal">IEMOCAP consists of dyadic sessions where actors perform improvisations or scripted </span>scenarios, labeled with emotions. We take 1023 instances in one session as test instances.</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-52ex"><a href="https://arxiv.org/abs/1810.02508" target="_blank" rel="noopener noreferrer">MELD</a></td>
+                        <td class="tg-98u5">MELD consists of multimodal dialogues from TV-series. We take the 2608 extracted audio features from the test set.</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-m9te" rowspan="7"><span style="font-weight:bold;color:black">Speaker Identity Detection</span></td>
+                        <td class="tg-kduv"><span style="font-weight:bold;color:black">Relationship Classification</span></td>
+                        <td class="tg-9b50"><a href="https://aclanthology.org/L18-1592/" target="_blank" rel="noopener noreferrer">CallHome</a></td>
+                        <td class="tg-gv6g"><span style="color:black">CallHome dataset consists of phone call recordings, which are annotated with relationship label of 'friend' or 'relative'. We take the test set consisting of 24 instances.</span></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-kduv"><span style="font-weight:bold;color:black">Language Identification</span></td>
+                        <td class="tg-qw55"><a href="https://arxiv.org/abs/2402.07729" target="_blank" rel="noopener noreferrer">Covost2-lan</a></td>
+                        <td class="tg-98u5"><span style="color:black">Covost2-lan consists of 1000 MCQs manually curated from Covost2 dataset, which ask about language of the input speech.</span></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-4o2h" rowspan="2"><span style="font-weight:bold;color:black">Gender Classification</span></td>
+                        <td class="tg-9b50"><a href="https://arxiv.org/abs/1912.06670" target="_blank" rel="noopener noreferrer">Commonvoice</a></td>
+                        <td class="tg-gv6g">Commonvoice consists of recorded speech annotated with <span style="font-weight:400;font-style:normal">demographic information like </span>accent, gender and age. We take the test set in English, consisting of 1258 instances.</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-qw55"><a href="https://arxiv.org/abs/2408.12734" target="_blank" rel="noopener noreferrer">FairSpeech</a> </td>
+                        <td class="tg-98u5">FairSpeech consists of recorded speech of people in the United States, annotated with demographic information like gender and age. We randomly sample 1000 samples as the evaluation set. </td>
+                      </tr>
+                      <tr>
+                        <td class="tg-4o2h" rowspan="2"><span style="font-weight:bold;color:black">Age Classification</span></td>
+                        <td class="tg-m918"><a href="https://arxiv.org/abs/1912.06670" target="_blank" rel="noopener noreferrer">Commonvoice</a></td>
+                        <td class="tg-bdqg"><span style="color:black">Commonvoice consists of recorded speech annotated with </span>demographic information like accent, gender and age. We take the test set in English, consisting of 1258 instances.</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-qw55"><a href="https://arxiv.org/abs/2408.12734" target="_blank" rel="noopener noreferrer">FairSpeech</a> </td>
+                        <td class="tg-98u5">FairSpeech consists of recorded speech of people in the United States, annotated with  demographic information like gender and age. We randomly sample 1000 samples as the evaluation set.</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-kduv"><span style="font-weight:bold;color:black">Accent Classification</span></td>
+                        <td class="tg-m918"><a href="https://arxiv.org/abs/1912.06670" target="_blank" rel="noopener noreferrer">Commonvoice</a></td>
+                        <td class="tg-bdqg">Commonvoice consists of recorded speech annotated with demographic information like accent, gender and age. We take the test set in English, consisting of 1086 instances.</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-7pxq" rowspan="6"><span style="font-weight:bold;color:black">Speech Content Understanding</span></td>
+                        <td class="tg-kduv"><span style="font-weight:bold;color:black">Speech Grounding</span></td>
+                        <td class="tg-qw55"><a href="https://arxiv.org/abs/2402.07729" target="_blank" rel="noopener noreferrer">Librispeech-grounding</a></td>
+                        <td class="tg-98u5"><span style="font-weight:400;font-style:normal">Librispeech-grounding consists of 1000 MCQs manually curated from Librispeech dataset, </span>which ask about time of saying a particular word in the speech input.</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-kduv"><span style="font-weight:bold;color:black">Speech Entity Recognition</span></td>
+                        <td class="tg-9b50"><a href="https://arxiv.org/abs/2402.07729" target="_blank" rel="noopener noreferrer">SLURP-ent</a></td>
+                        <td class="tg-gv6g"><span style="color:black">SLURP-ent consists of 1000 MCQs manually curated from SLURP dataset, which ask about entities in speech.</span></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-4o2h" rowspan="2"><span style="font-weight:bold;color:black">Instruction Following</span></td>
+                        <td class="tg-52ex"><a href="https://arxiv.org/abs/2406.16020" target="_blank" rel="noopener noreferrer">Alpaca-Audio</a></td>
+                        <td class="tg-eojn"><span style="font-weight:400;font-style:normal">Alpaca-Audio consists of 100 speech instructions manually converted from </span>Alpaca text instruction dataset.</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-9b50"><a href="https://huggingface.co/datasets/teknium/OpenHermes-2.5" target="_blank" rel="noopener noreferrer">Openhermes-Audio</a></td>
+                        <td class="tg-gv6g"><span style="color:black">Openhermes-Audio consists of 100 speech instructions manually converted from Openhermes text instruction dataset.</span></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-4o2h" rowspan="2"><span style="font-weight:bold;color:black">Speech QA</span></td>
+                        <td class="tg-qw55"><a href="https://arxiv.org/abs/2406.16020" target="_blank" rel="noopener noreferrer">CN-College-Listen</a></td>
+                        <td class="tg-98u5">CN-College-Listen consists of questions from the English listening comprehension section of China’s national college entrance examinations. There are 2271 MCQ questions in total.</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-m918"><a href="https://arxiv.org/abs/2406.16020" target="_blank" rel="noopener noreferrer">Public_sg_speech</a><span style="color:#156082">  </span></td>
+                        <td class="tg-bdqg">Public-SG-SpeechQA consists of public speaking videos from Singaporean politicians with transcriptions. Five questions per segment were generated by LLMs, resulting in 688 QA pairs.</td>
+                      </tr>
+                    </tbody></table>
+                    </div>
                <br><br>
                <div class="content has-text-justified">
                   <h3 class="title is-4">(B) Result Analysis</h3>
@@ -611,27 +673,23 @@
                         <br>
                         3) Rank on <b>gender detection</b> and <b>nuanced intent (humor, sarcasm) detection</b> are not so correlated with that in interactive eval
                         <br/>
-                     <h3 class="title is-4">(C) User Queries</h3>
-                     We also perform qualitative analysis for user voice queries and obtained some insights:
-                     <br><br>
-                     <b>Topics of user queries.</b> 
-                     <br>
-                     We identify three common types of user queries:
-                     <br>
-                     1) <b>Pragmatic queries</b> like resume building tips, weather and time checking. These queries are mostly short (one sentence only). It usually requires the audio model to ask more about the context to provide a personalized response.
-                     <br>
-                     2) <b>Knowledge expansion</b> questions like asking about theory of relativity. These queries need the audio model to be well equipped with a diverse and comprehensive knowledge base to provide factual and detailed information across a wide range of topics.
-                     <br>
-                     3) <b>Personal sharing</b> on recent dilemma, personal opinions and habits. These queries are often longer and more elaborated. To provide good responses, the voice assistant may need to make inferences about the users' tone and capture details well enough.
-                     <br><br>
-                     <b>Difference from text queries.</b> 
-                     <br>
-                     Unlike how users interact with text-only LLMs through typing, we found some unique aspects in speech interaction:
-                     <br>
-                     1) <b>Background noises</b> such as conversations in crowded or outdoor settings. This brings about new challenges for AI models, as they need to effectively process spoken input while distinguishing the user's voice from surrounding noises to ensure accurate interpretation and seamless interaction.
-                     <br>
-                     2) <b>Vocal cues</b> like pauses, laghter, tone, pitch, and accent. These features deliver social information about the speaker's emotion and identity beyond words.
                      </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section class="section" style="background-color:#ffffff">
+         <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+               <div class="column is-six-fifths">
+                  <h2 class="title is-3">Conclusions</h2>
+                  <div class="content has-text-justified">
+                     <b>Key Insights.</b> The observed <b>changes in model rankings</b> between static and interactive evaluations highlight the limitations of static audio benchmarks in capturing the complexities of real-world interactions. In contrast, interactive evaluations provide a more realistic measure of an audio model's capabilities, revealing strengths and weaknesses that static methods may overlook. <b>The discrepancies underscore the urgent need for an interactive evaluation platform like Talk Arena</b> to ensure models are assessed in contexts that reflect their actual use. We call on the research community to prioritize the development of interactive evaluation for audio models, enabling more reliable and actionable insights into performance of different Large Audio Models.
+                     <br><br>
+                  <b>Moving Forward.</b> As next steps, we hope to: <b>1) Scale up the data collection.</b> We hope to collect more pairwise user preferences from the general public. This will allow us to get insights on user preference among different large audio models with more diverse perspectives. <b>2) Support multi-turn conversations in the system.</b> Multi-turn which requires higher adaptability to user feedback and dynamic environments. It also allows evaluation along more dimensions such as consistency of the flow, context handling across turns and so on. It can help us achieve a more comprehensive understanding of audio models’ conversational abilities, ensuring it meets the nuanced demands of real-world interactions. <b>3) Control data quality when scaling up.</b> When collecting user preferences from the wild, malicious users may deliberately introduce harmful, biased, or nonsensical inputs, compromising the quality of the evaluation. By identifying and mitigating malicious activity, we hope to maintain the reliability of our evaluation system.
+
                   </div>
                </div>
             </div>
