@@ -1,731 +1,686 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Talk Arena</title>
-    <meta name="description" content="Talk Arena: Interactive Evaluation of Large Audio Models">
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Facebook -->
-    <meta property="og:url" content="https://salt-nlp.github.io/Speech-Arena-Project-Page/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Talk Arena">
-    <meta property="og:description" content="Interactive Evaluation of Large Audio Models.">
-    <meta property="og:image" content="https://diva-audio.github.io/static/images/hero.png">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="diva-audio.github.io">
-    <meta property="twitter:url" content="https://salt-nlp.github.io/Speech-Arena-Project-Page/">
-    <meta name="twitter:title" content="DiVA (Distilled Voice Assistant)">
-    <meta name="twitter:description" content="Interactive Evaluation of Large Audio Models.">
-    <meta name="twitter:image" content="https://diva-audio.github.io/static/images/hero.png">
-
-    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-          rel="stylesheet">
-
-    <link rel="stylesheet" href="./static/css/bulma.min.css">
-    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="./static/css/index.css">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
-
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer src="./static/js/fontawesome.all.min.js"></script>
-    <script src="./static/js/bulma-carousel.min.js"></script>
-    <script src="./static/js/bulma-slider.min.js"></script>
-    <script src="./static/js/index.js"></script>
-    <script
-	type="module"
-	src="https://gradio.s3-us-west-2.amazonaws.com/5.0.2/gradio.js"
-      ></script>
-  </head>
-  <style>
-
-    .SAmE {
-        color: #D55E00; /* myorange */
-        font-family: monospace;
-        font-weight: bold;
-    }
-    .SAsE {
-        color: #2F5596; /* mydarkblue */
-        font-family: monospace;
-        font-weight: bold;
-    }
-    .highlight {
-        background-color: #F9CD69;
-        font-weight: bold;
-    }
-    .quote {
-	color: #073ea2;
-	font-style: italic; 
-	font-size: 1.2em;
-	max-width: 50%;
-	margin: 0 auto; 
-	font-weight: bold; 
-	margin-bottom: 20px;
-	text-align: center;
-    }
-    table {
-	max-width: 60%;
-	border-collapse: collapse;
-	margin: 0 auto;
-	margin-top: 20px;
-	text-align: center;
-    }
-    th, td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	font-size: 14px;
-    }
-    th {
-	background-color: #f2f2f2;
-	color: #333;
-    }
-    tr:nth-child(even) {
-	background-color: #f9f9f9;
-    }
-    td:nth-child(2), td:nth-child(3) {
-	text-align: center;
-    }
-    .dashline {
-	border-top: 1px dashed #999;
-    }
-    caption {
-	caption-side: bottom;
-	font-size: 0.9em;
-	padding-top: 10px;
-	color: #555;
-    }
-    .quote-text {
-	color: #073ea2;
-	font-weight: bold;
-    }
-  </style>
-
-  <body>
-    
-
-    <section class="hero">
-      <div class="hero-body">
-	<div class="container is-max-desktop">
-	  <div class="columns is-centered">
-            <div class="column has-text-centered">
-              <h1 class="title is-1 publication-title" style="margin-bottom:0">
-		<img src="./static/logo-hao.svg" alt="Talk Arena Logo" style="height: 10vw;"> Talk Arena</h1>
-	      <h2>Interactive Evaluation of Large Audio Models</h2>
-	      
-              <div class="is-size-5 publication-authors">
-		<span class="author-block">
-      <a href="https://yocodeyo.github.io/">Ella Minzhi Li</a><sup><span title="Project Lead, Stanford University & National University of Singapore" alt="Project Lead, Stanford University & National University of Singapore">* †</span></sup>,</span>
-		<span class="author-block"><a href="https://williamheld.com/">Will Held</a><sup><span title="Evaluation Co-Author, Georgia Institute of Technology & Stanford University" alt="Evaluation Coauthor, Georgia Institute of Technology & Stanford University">* †<span></sup>,</span>
-		  <span class="author-block"><a href="https://michryan.com/">Michael J. Ryan</a><sup><span title="Evaluation Co-Author, Stanford University" alt="Evaluation Coauthor, Stanford University">†<span></sup>,</span>
-		    <span class="author-block"><a href="https://www.zhuhao.me/">Hao Zhu</a><sup><span title="Evaluation Co-Author, Stanford University" alt="Evaluation Coauthor, Stanford University">†<span></sup>,</span>
-		      <span class="author-block">
-			  <a href="https://cs.stanford.edu/~diyiy/">Diyi Yang</a><sup><span alt="Project Advisor, Stanford University" title="Project Advisor, Stanford University" style="z-index: 1000;">** </span></sup>
-			</span>
-			<br style="height=0.1px"/>
-			<span style="font-size: 0.8rem; position: relative; top: -1vh;">[Initial Release: Nov 11, 2024; Last Updated Dec 2, 2024]</span>
-			<br style="height=0.1px"/>
-              </div>
-	      <div class="column has-text-centered">
-		<div class="publication-links">
-		  <!-- PDF Link. -->
-		  <span class="link-block">
-	<!--	    <a href="https://arxiv.org/abs/2410.02678"
-                       class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-			<i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Paper Link</span>
-                    </a> -->
-                    
-		    <!-- Code Link. -->
-<!--		    <span class="link-block">
-                      <a href="https://colab.research.google.com/drive/1Ab3z_BjM_FblAyne7W7hbnT6gLWOhram?usp=sharing"
-			 class="external-link button is-normal is-rounded is-dark">
-			<span class="icon">
-			  <i class="far fa-chart-bar"></i>
-			</span>
-				<span>Evaluation Notebook</span>
-                      </a>
-		    </span>
-		    <span class="link-block">  -->
-                <!--      <a href="https://github.com/SALT-NLP/speech-arena"
-			 class="external-link button is-normal is-rounded is-dark"> 
-			<span class="icon">
-			  <i class="fab fa-github"></i>
-			</span>
-			<span>Github</span>
-                      </a>-->
-		</div>
-	      </div>
-	      <section class="hero teaser">
-		<div class="container is-max-desktop">
-		  <div class="hero-body">
-		    
-	          <div class="columns is-centered has-text-centered">
-	    	    <div class="container is-max-desktop">
-		      <gradio-app title="gradio demo" src="https://b06ef30ce0641fa3bd.gradio.live/"></gradio-app>
-		    </div>
-	          </div>	  
-                  <br/>
-		    <h4 class="subtitle has-text-centered">
-          <span style="color: #820000">[TL;DR]
-          </span> As AI Assistants' capability expands beyond text into other modalities like audio, they enable new forms of interactions between humans and AI. On the other hand, most benchmarks for audio processing primarily focus on transcribing and analyzing user speech. We introduce <span id="highlight"><b>Talk Arena</b></span>, an interactive open platform to evaluate Large Audio Models through <span id="highlight"><b>interactions with users in real-world settings</b></span>. It helps to assess whether previous static benchmarks are valuable measures of model quality, or whether there is need for a new evaluation paradigm for Large Audio Models. We evaluate <span
-          id="highlight">large audio models</span> 
-          using <span
-          id="highlight"><b>18 speech comprehension datasets</b></span> and <span
-          id="highlight"><b>Talk Arena</b></span>.</a>
-        </h4>
-		  </div>
-		</div>
-	      </section>
+   <head>
+      <meta charset="utf-8">
+      <title>Talk Arena</title>
+      <meta name="description" content="Talk Arena: Interactive Evaluation of Large Audio Models">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Facebook -->
+      <meta property="og:url" content="https://salt-nlp.github.io/Speech-Arena-Project-Page/">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="Talk Arena">
+      <meta property="og:description" content="Interactive Evaluation of Large Audio Models.">
+      <meta property="og:image" content="https://diva-audio.github.io/static/images/hero.png">
+      <!-- Twitter -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta property="twitter:domain" content="diva-audio.github.io">
+      <meta property="twitter:url" content="https://salt-nlp.github.io/Speech-Arena-Project-Page/">
+      <meta name="twitter:title" content="DiVA (Distilled Voice Assistant)">
+      <meta name="twitter:description" content="Interactive Evaluation of Large Audio Models.">
+      <meta name="twitter:image" content="https://diva-audio.github.io/static/images/hero.png">
+      <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+         rel="stylesheet">
+      <link rel="stylesheet" href="./static/css/bulma.min.css">
+      <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+      <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+      <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+      <link rel="stylesheet"
+         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+      <link rel="stylesheet" href="./static/css/index.css">
+      <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+      <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script defer src="./static/js/fontawesome.all.min.js"></script>
+      <script src="./static/js/bulma-carousel.min.js"></script>
+      <script src="./static/js/bulma-slider.min.js"></script>
+      <script src="./static/js/index.js"></script>
+      <script
+         type="module"
+         src="https://gradio.s3-us-west-2.amazonaws.com/5.0.2/gradio.js"
+         ></script>
+   </head>
+   <style>
+      .SAmE {
+      color: #D55E00; /* myorange */
+      font-family: monospace;
+      font-weight: bold;
+      }
+      .SAsE {
+      color: #2F5596; /* mydarkblue */
+      font-family: monospace;
+      font-weight: bold;
+      }
+      .highlight {
+      background-color: #F9CD69;
+      font-weight: bold;
+      }
+      .quote {
+      color: #073ea2;
+      font-style: italic; 
+      font-size: 1.2em;
+      max-width: 50%;
+      margin: 0 auto; 
+      font-weight: bold; 
+      margin-bottom: 20px;
+      text-align: center;
+      }
+      table {
+      max-width: 60%;
+      border-collapse: collapse;
+      margin: 0 auto;
+      margin-top: 20px;
+      text-align: center;
+      }
+      th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      font-size: 14px;
+      }
+      th {
+      background-color: #f2f2f2;
+      color: #333;
+      }
+      tr:nth-child(even) {
+      background-color: #f9f9f9;
+      }
+      td:nth-child(2), td:nth-child(3) {
+      text-align: center;
+      }
+      .dashline {
+      border-top: 1px dashed #999;
+      }
+      caption {
+      caption-side: bottom;
+      font-size: 0.9em;
+      padding-top: 10px;
+      color: #555;
+      }
+      .quote-text {
+      color: #073ea2;
+      font-weight: bold;
+      }
+   </style>
+   <body>
+      <section class="hero">
+         <div class="hero-body">
+         <div class="container is-max-desktop">
+            <div class="columns is-centered">
+               <div class="column has-text-centered">
+                  <h1 class="title is-1 publication-title" style="margin-bottom:0">
+                     <img src="./static/logo-hao.svg" alt="Talk Arena Logo" style="height: 10vw;"> Talk Arena
+                  </h1>
+                  <h2>Interactive Evaluation of Large Audio Models</h2>
+                  <div class="is-size-5 publication-authors">
+                     <span class="author-block">
+                     <a href="https://yocodeyo.github.io/">Ella Minzhi Li</a><sup><span title="Project Lead, Stanford University & National University of Singapore" alt="Project Lead, Stanford University & National University of Singapore">* †</span></sup>,</span>
+                     <span class="author-block"><a href="https://williamheld.com/">Will Held</a><sup><span title="Evaluation Co-Author, Georgia Institute of Technology & Stanford University" alt="Evaluation Coauthor, Georgia Institute of Technology & Stanford University">* †<span></sup>,</span>
+                     <span class="author-block"><a href="https://michryan.com/">Michael J. Ryan</a><sup><span title="Evaluation Co-Author, Stanford University" alt="Evaluation Coauthor, Stanford University">†<span></sup>,</span>
+                     <span class="author-block"><a href="https://www.zhuhao.me/">Hao Zhu</a><sup><span title="Evaluation Co-Author, Stanford University" alt="Evaluation Coauthor, Stanford University">†<span></sup>,</span>
+                     <span class="author-block">
+                     <a href="https://cs.stanford.edu/~diyiy/">Diyi Yang</a><sup><span alt="Project Advisor, Stanford University" title="Project Advisor, Stanford University" style="z-index: 1000;">** </span></sup>
+                     </span>
+                     <br style="height=0.1px"/>
+                     <span style="font-size: 0.8rem; position: relative; top: -1vh;">[Initial Release: Nov 11, 2024; Last Updated Dec 2, 2024]</span>
+                     <br style="height=0.1px"/>
+                  </div>
+                  <div class="column has-text-centered">
+                     <div class="publication-links">
+                        <!-- PDF Link. -->
+                        <span class="link-block">
+                        <!--	    <a href="https://arxiv.org/abs/2410.02678"
+                           class="external-link button is-normal is-rounded is-dark">
+                           <span class="icon">
+                           <i class="fas fa-file-pdf"></i>
+                           </span>
+                           <span>Paper Link</span>
+                           </a> -->
+                        <!-- Code Link. -->
+                        <!--		    <span class="link-block">
+                           <a href="https://colab.research.google.com/drive/1Ab3z_BjM_FblAyne7W7hbnT6gLWOhram?usp=sharing"
+                           class="external-link button is-normal is-rounded is-dark">
+                           <span class="icon">
+                           <i class="far fa-chart-bar"></i>
+                           </span>
+                           <span>Evaluation Notebook</span>
+                           </a>
+                           </span>
+                           <span class="link-block">  -->
+                        <!--      <a href="https://github.com/SALT-NLP/speech-arena"
+                           class="external-link button is-normal is-rounded is-dark"> 
+                           <span class="icon">
+                            <i class="fab fa-github"></i>
+                           </span>
+                           <span>Github</span>
+                                             </a>-->
+                     </div>
+                  </div>
+                  <section class="hero teaser">
+                     <div class="container is-max-desktop">
+                        <div class="hero-body">
+                           <div class="columns is-centered has-text-centered">
+                              <div class="container is-max-desktop">
+                                 <gradio-app title="gradio demo" src="https://b06ef30ce0641fa3bd.gradio.live/"></gradio-app>
+                              </div>
+                           </div>
+                           <br/>
+                           <h4 class="subtitle has-text-centered">
+                              <span style="color: #820000">[TL;DR]
+                              </span> As AI Assistants' capability expands beyond text into other modalities like audio, they enable new forms of interactions between humans and AI. On the other hand, most benchmarks for audio processing primarily focus on transcribing and analyzing user speech. We introduce <span id="highlight"><b>Talk Arena</b></span>, an interactive open platform to evaluate Large Audio Models through <span id="highlight"><b>interactions with users in real-world settings</b></span>. It helps to assess whether previous static benchmarks are valuable measures of model quality, or whether there is need for a new evaluation paradigm for Large Audio Models. We evaluate <span
+                                 id="highlight">large audio models</span> 
+                              using <span
+                                 id="highlight"><b>18 speech comprehension datasets</b></span> and <span
+                                 id="highlight"><b>Talk Arena</b></span>.</a>
+                           </h4>
+                        </div>
+                     </div>
+                  </section>
+               </div>
             </div>
-	  </div>
-	</div>
-    </section>
-    
-    <section class="section" >
-      <div class="container is-max-desktop">
-	<!-- Abstract. -->
-	<div class="columns is-centered has-text-centered">
-          <div class="column is-six-fifths">
-            <h2 class="title is-3">Overview</h2>
-	    
-	    <img src="./static/overview4.png" alt="Description of the training pipeline. The trainable red modules are the Whisper Decoder, Query Tokens, and a Projection. The frozen Blue modules are the Whisper Encoder and all of Llama." style="width: 75vw;">
-            <div class="content has-text-justified">
-              <p>
-                <div class="columns is-centered has-text-centered"><p>Comparison between <b>Static Evaluation</b> and <b>Talk Arena</b>.</p></div>
-		
-		<br/><br/>
-
-		Recent efforts towards creating multimodal models have resulted in LLMs capable of processing audio inputs such as speech.  Speech is a low-friction interface which expands social and phonetic interaction opportunities with end users.  Prior work has benchmarked audio models on a set of disjoint static audio tests such as sarcasm or humor detection.  However such static benchmarks lack the complex dynamics of real user interactions and preferences.  Inspired by arena-style evaluations for text LLMs we introduce Talk Arena, an open platform for evaluating Large Audio Models with pairwise human preferences.  Talk Arena helps to reveal insights on:
-                    <br><br>
-                    <b>What use cases users are exploring with large audio models?</b> We can analyze user queries from the wild and compare the use case difference with traditional use cases of text LLMs.
-                    <br><br>
-                    <b>Which Large Language Model users prefer the most?</b> Users vote their preferences with self-initiated prompts, which better reflects the actual user experience.
-                    <br><br>
-                    <b>Are static speech comprehension benchmarks predictive user preferences in interactive settings?</b> It helps to reveal the gap between the mainstream evaluation method for audio models and actual user preferences.
+         </div>
+      </section>
+      <section class="section" >
+         <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+               <div class="column is-six-fifths">
+                  <h2 class="title is-3">Overview</h2>
+                  <img src="./static/overview4.png" alt="Description of the training pipeline. The trainable red modules are the Whisper Decoder, Query Tokens, and a Projection. The frozen Blue modules are the Whisper Encoder and all of Llama." style="width: 75vw;">
+                  <div class="content has-text-justified">
+                     <p>
+                     <div class="columns is-centered has-text-centered">
+                        <p>Comparison between <b>Static Evaluation</b> and <b>Talk Arena</b>.</p>
+                     </div>
+                     <br/><br/>
+                     Recent efforts towards creating multimodal models have resulted in LLMs capable of processing audio inputs such as speech.  Speech is a low-friction interface which expands social and phonetic interaction opportunities with end users.  Prior work has benchmarked audio models on a set of disjoint static audio tests such as sarcasm or humor detection.  However such static benchmarks lack the complex dynamics of real user interactions and preferences.  Inspired by arena-style evaluations for text LLMs we introduce Talk Arena, an open platform for evaluating Large Audio Models with pairwise human preferences.  Talk Arena helps to reveal insights on:
+                     <br><br>
+                     <b>What use cases users are exploring with large audio models?</b> We can analyze user queries from the wild and compare the use case difference with traditional use cases of text LLMs.
+                     <br><br>
+                     <b>Which Large Language Model users prefer the most?</b> Users vote their preferences with self-initiated prompts, which better reflects the actual user experience.
+                     <br><br>
+                     <b>Are static speech comprehension benchmarks predictive user preferences in interactive settings?</b> It helps to reveal the gap between the mainstream evaluation method for audio models and actual user preferences.
+                  </div>
+               </div>
             </div>
-          </div>
-	</div>        
-      </div>
-    </section>
-
-    <section class="section" style="background-color:#FFFFFF">
-      <div class="container is-max-desktop">
-	<!-- Abstract. -->
-	<div class="columns is-centered has-text-centered">
-          <div class="column is-six-fifths">
-            <h2 class="title is-3">Static Evaluation</h2>
-            
-            <div class="content has-text-justified">
-              <h3 class="title is-4">(A) Tasks and Datasets</h3>
-              <p>
-                We select <b>18</b> speech comprehension benchmark and perform evaluation for <b>10</b> different large audio models.
-                <br><br>
-                A wide range of tasks are covered, which include <b>Humor Detection</b>, <b>Sarcasm Detection</b>, <b>Intent Detection</b>, <b>Relationship Classification</b>, <b>Gender Classification</b>, <b>Age Classification</b>, <b>Accent Classification</b>, <b>Speech Grounding</b>, <b>Language Identification</b>, <b>Speech Entity Recognition</b>, <b>Speech Question Answering</b>, and <b>Speech Instruction Following</b>. They can be categorized into three broad categories of <b>Speaker Cognitive State</b>, <b>Speaker Identity</b>, and <b>Speech Content Understanding</b>.
-        </p>
+         </div>
+      </section>
+      <section class="section" style="background-color:#FFFFFF">
+         <div class="container is-max-desktop">
+         <!-- Abstract. -->
+         <div class="columns is-centered has-text-centered">
+            <div class="column is-six-fifths">
+               <h2 class="title is-3">Static Evaluation</h2>
+               <div class="content has-text-justified">
+                  <h3 class="title is-4">(A) Tasks and Datasets</h3>
+                  <p>
+                     We select <b>18</b> speech comprehension benchmark and perform evaluation for <b>10</b> different large audio models.
+                     <br><br>
+                     A wide range of tasks are covered, which include <b>Humor Detection</b>, <b>Sarcasm Detection</b>, <b>Intent Detection</b>, <b>Relationship Classification</b>, <b>Gender Classification</b>, <b>Age Classification</b>, <b>Accent Classification</b>, <b>Speech Grounding</b>, <b>Language Identification</b>, <b>Speech Entity Recognition</b>, <b>Speech Question Answering</b>, and <b>Speech Instruction Following</b>. They can be categorized into three broad categories of <b>Speaker Cognitive State</b>, <b>Speaker Identity</b>, and <b>Speech Content Understanding</b>.
+                  </p>
+               </div>
+               <!-- <img src="./static/results4.png" alt="Static Evaluation Results." style="height: 66vw;"> -->
+               <div class="content has-text-justified" style="width: 100%; margin: 0 auto; text-align: center;overflow-x: auto; place-items: center;">
+                  <style type="text/css">
+                     .tg  {border-collapse:collapse;border-spacing:0;}
+                     .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                     overflow:hidden;padding:10px 5px;word-break:normal;}
+                     .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                     font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+                     .tg .tg-qs6o{background-color:#E7EAED;border-color:inherit;text-align:center;vertical-align:top}
+                     .tg .tg-4rvp{background-color:#CCD2D8;border-color:inherit;text-align:center;vertical-align:top}
+                     .tg .tg-nlmt{background-color:#156082;border-color:inherit;text-align:center;vertical-align:top}
+                  </style>
+                  <table class="tg">
+                     <thead>
+                        <tr>
+                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Task</span></th>
+                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Dataset</span></th>
+                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Task</span></th>
+                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Dataset</span></th>
+                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Task</span></th>
+                           <th class="tg-nlmt"><span style="font-weight:bold;color:white">Dataset</span></th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td class="tg-4rvp"><span style="font-weight:bold;color:black">Humor Detection</span></td>
+                           <td class="tg-4rvp"><a href="https://aclanthology.org/D19-1211/" target="_blank" rel="noopener noreferrer">URFUNNY</a></td>
+                           <td class="tg-4rvp"><span style="font-weight:bold;color:black">Language Identification</span></td>
+                           <td class="tg-4rvp"><a href="https://arxiv.org/abs/2007.10310" target="_blank" rel="noopener noreferrer">Covost2</a></td>
+                           <td class="tg-4rvp"><span style="font-weight:bold;color:black">Speech Grounding</span></td>
+                           <td class="tg-4rvp"><a href="https://ieeexplore.ieee.org/document/7178964" target="_blank" rel="noopener noreferrer">Librispeech</a></td>
+                        </tr>
+                        <tr>
+                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Sarcasm Detection</span></td>
+                           <td class="tg-qs6o"><a href="https://aclanthology.org/P19-1455/" target="_blank" rel="noopener noreferrer">MUSTARD</a></td>
+                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Relationship Classification</span></td>
+                           <td class="tg-qs6o"><a href="https://aclanthology.org/L18-1592/" target="_blank" rel="noopener noreferrer">CallHome</a></td>
+                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Speech Entity Recognition</span></td>
+                           <td class="tg-qs6o"><a href="https://aclanthology.org/2020.emnlp-main.588/" target="_blank" rel="noopener noreferrer">SLURP</a></td>
+                        </tr>
+                        <tr>
+                           <td class="tg-4rvp">  <span style="font-weight:bold;color:black">Intent Detection</span></td>
+                           <td class="tg-4rvp"><a href="https://aclanthology.org/2020.emnlp-main.588/" target="_blank" rel="noopener noreferrer">SLURP</a></td>
+                           <td class="tg-4rvp"><span style="font-weight:bold;color:black">Accent Classification</span></td>
+                           <td class="tg-4rvp"><a href="https://arxiv.org/abs/1912.06670" target="_blank" rel="noopener noreferrer">Commonvoice</a></td>
+                           <td class="tg-4rvp"><span style="font-weight:bold;color:black">Instruction Following</span></td>
+                           <td class="tg-4rvp"><a href="https://crfm.stanford.edu/2023/03/13/alpaca.html" target="_blank" rel="noopener noreferrer">Alpaca</a><span style="color:black">, </span><a href="https://huggingface.co/datasets/teknium/OpenHermes-2.5" target="_blank" rel="noopener noreferrer">Openhermes</a></td>
+                        </tr>
+                        <tr>
+                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Age/Gender Classification</span>   </td>
+                           <td class="tg-qs6o"><a href="https://arxiv.org/abs/1912.06670" target="_blank" rel="noopener noreferrer">Commonvoice</a><span style="color:black">, </span><a href="https://arxiv.org/abs/2408.12734" target="_blank" rel="noopener noreferrer">FairSpeech</a> </td>
+                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Emotion Recognition</span></td>
+                           <td class="tg-qs6o"><a href="https://sail.usc.edu/iemocap/Busso_2008_iemocap.pdf" target="_blank" rel="noopener noreferrer">IEMOCAP</a><span style="color:black">, </span><a href="https://arxiv.org/abs/1810.02508" target="_blank" rel="noopener noreferrer">MELD</a></td>
+                           <td class="tg-qs6o"><span style="font-weight:bold;color:black">Speech QA</span></td>
+                           <td class="tg-qs6o"><a href="https://arxiv.org/abs/2406.16020" target="_blank" rel="noopener noreferrer">CN-College-Listen</a><span style="color:black">, </span><a href="https://arxiv.org/abs/2406.16020" target="_blank" rel="noopener noreferrer">Public_sg_speech</a>  </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <!-- <img src="./static/tasks22.png" alt="Tasks and Datasets for Static Evaluation." style="height: 23vw;"> -->
+               <br><br>
+               <div class="content has-text-justified">
+                  <h3 class="title is-4">(B) Result Analysis</h3>
+                  <p>
+                     To ensure robustness, we report the average of model performance using three different prompt variations. For public_sg_speech, openhermes, and alpaca datasets, we report the <a href="https://arxiv.org/html/2402.11161v4">cfm</a> metric. For other tasks, we report the macro F1 scores.
+                  </p>
+               </div>
+               <div class="content has-text-justified">
+                  <p>
+                     In general, close sourced models like <a href="https://arxiv.org/abs/2312.11805">Gemini</a> and <a href="https://arxiv.org/abs/2312.11805">GPT4o</a> generally top the leaderboard: <a href="https://arxiv.org/abs/2312.11805">Gemini</a> has the highest performance on SLURP intent classification, MELD emotion recognition, CN_college_listen and <a href="https://arxiv.org/abs/2312.11805">GPT4o</a> performs the best on MUSTARD, IEMOCAP, CallHome, Fairspeech (age classification), and Commonvoice (accent classification) datasets. They also perform relatively well despite not achieving best performance, showing <b>good generalization and transferability in them</b>.
+                     <br><br>
+                     Among the open-sourced models, <a href="https://arxiv.org/abs/2407.10759">Qwen2-Audio</a> demonstrates outstanding performance on SpeechQA and Gender/Age classification tasks and <a href="https://arxiv.org/abs/2410.02678">DiVA</a> shows excellent humor detection and speech instruction following capability that outperforms all other models. They also show relatively good performance on other tasks, demonstrating <b>good generalizability</b>. <a href="https://arxiv.org/pdf/2309.05519">NextGPT</a> and <a href="https://arxiv.org/abs/2305.16355">PandaGPT</a> perform relatively worse, especially for tasks like intent and emotion recognition, accent recognition, and instruction following. They share similar encoder architecture (ImageBind) and this suggests <b>the limitation of using ImageBind for encoding audio features</b>.
+                     <br><br>
+                     We also perform evaluation for the sequential pipeline of <a href="https://arxiv.org/abs/2212.04356">Whisper</a> plus <a href="https://arxiv.org/abs/2407.21783">Llama3-8B-Instruct</a>. It shows relatively good performance for tasks like emotion recognition and speech QA, which means some of the data instances can be inferred from content only. However, for each and every task there are speech models outperforming the whisper+llama3 pipeline. This suggests that some information like emotion, relationship, and sarcasm can be <b>embedded in vocal cues</b> and <b>requires understanding beyond content</b>.
+                  </p>
+               </div>
             </div>
-      <!-- <img src="./static/results4.png" alt="Static Evaluation Results." style="height: 66vw;"> -->
-      <div class="content has-text-justified" style="width: 100%; margin: 0 auto; text-align: center;overflow-x: auto; place-items: center;">
-        <style type="text/css">
-          .tg  {border-collapse:collapse;border-spacing:0;}
-          .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-            overflow:hidden;padding:10px 5px;word-break:normal;}
-          .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-          .tg .tg-qs6o{background-color:#E7EAED;border-color:inherit;text-align:center;vertical-align:top}
-          .tg .tg-4rvp{background-color:#CCD2D8;border-color:inherit;text-align:center;vertical-align:top}
-          .tg .tg-nlmt{background-color:#156082;border-color:inherit;text-align:center;vertical-align:top}
-          </style>
-          <table class="tg">
-            <thead>
-            <tr>
-              <th class="tg-nlmt"><span style="font-weight:bold;color:white">Task</span></th>
-              <th class="tg-nlmt"><span style="font-weight:bold;color:white">Dataset</span></th>
-              <th class="tg-nlmt"><span style="font-weight:bold;color:white">Task</span></th>
-              <th class="tg-nlmt"><span style="font-weight:bold;color:white">Dataset</span></th>
-              <th class="tg-nlmt"><span style="font-weight:bold;color:white">Task</span></th>
-              <th class="tg-nlmt"><span style="font-weight:bold;color:white">Dataset</span></th>
-            </tr></thead>
-          <tbody>
-            <tr>
-              <td class="tg-4rvp"><span style="font-weight:bold;color:black">Humor Detection</span></td>
-              <td class="tg-4rvp"><a href="https://aclanthology.org/D19-1211/" target="_blank" rel="noopener noreferrer">URFUNNY</a></td>
-              <td class="tg-4rvp"><span style="font-weight:bold;color:black">Language Identification</span></td>
-              <td class="tg-4rvp"><a href="https://arxiv.org/abs/2007.10310" target="_blank" rel="noopener noreferrer">Covost2</a></td>
-              <td class="tg-4rvp"><span style="font-weight:bold;color:black">Speech Grounding</span></td>
-              <td class="tg-4rvp"><a href="https://ieeexplore.ieee.org/document/7178964" target="_blank" rel="noopener noreferrer">Librispeech</a></td>
-            </tr>
-            <tr>
-              <td class="tg-qs6o"><span style="font-weight:bold;color:black">Sarcasm Detection</span></td>
-              <td class="tg-qs6o"><a href="https://aclanthology.org/P19-1455/" target="_blank" rel="noopener noreferrer">MUSTARD</a></td>
-              <td class="tg-qs6o"><span style="font-weight:bold;color:black">Relationship Classification</span></td>
-              <td class="tg-qs6o"><a href="https://aclanthology.org/L18-1592/" target="_blank" rel="noopener noreferrer">CallHome</a></td>
-              <td class="tg-qs6o"><span style="font-weight:bold;color:black">Speech Entity Recognition</span></td>
-              <td class="tg-qs6o"><a href="https://aclanthology.org/2020.emnlp-main.588/" target="_blank" rel="noopener noreferrer">SLURP</a></td>
-            </tr>
-            <tr>
-              <td class="tg-4rvp">  <span style="font-weight:bold;color:black">Intent Detection</span></td>
-              <td class="tg-4rvp"><a href="https://aclanthology.org/2020.emnlp-main.588/" target="_blank" rel="noopener noreferrer">SLURP</a></td>
-              <td class="tg-4rvp"><span style="font-weight:bold;color:black">Accent Classification</span></td>
-              <td class="tg-4rvp"><a href="https://arxiv.org/abs/1912.06670" target="_blank" rel="noopener noreferrer">Commonvoice</a></td>
-              <td class="tg-4rvp"><span style="font-weight:bold;color:black">Instruction Following</span></td>
-              <td class="tg-4rvp"><a href="https://crfm.stanford.edu/2023/03/13/alpaca.html" target="_blank" rel="noopener noreferrer">Alpaca</a><span style="color:black">, </span><a href="https://huggingface.co/datasets/teknium/OpenHermes-2.5" target="_blank" rel="noopener noreferrer">Openhermes</a></td>
-            </tr>
-            <tr>
-              <td class="tg-qs6o"><span style="font-weight:bold;color:black">Age/Gender Classification</span>   </td>
-              <td class="tg-qs6o"><a href="https://arxiv.org/abs/1912.06670" target="_blank" rel="noopener noreferrer">Commonvoice</a><span style="color:black">, </span><a href="https://arxiv.org/abs/2408.12734" target="_blank" rel="noopener noreferrer">FairSpeech</a> </td>
-              <td class="tg-qs6o"><span style="font-weight:bold;color:black">Emotion Recognition</span></td>
-              <td class="tg-qs6o"><a href="https://sail.usc.edu/iemocap/Busso_2008_iemocap.pdf" target="_blank" rel="noopener noreferrer">IEMOCAP</a><span style="color:black">, </span><a href="https://arxiv.org/abs/1810.02508" target="_blank" rel="noopener noreferrer">MELD</a></td>
-              <td class="tg-qs6o"><span style="font-weight:bold;color:black">Speech QA</span></td>
-              <td class="tg-qs6o"><a href="https://arxiv.org/abs/2406.16020" target="_blank" rel="noopener noreferrer">CN-College-Listen</a><span style="color:black">, </span><a href="https://arxiv.org/abs/2406.16020" target="_blank" rel="noopener noreferrer">Public_sg_speech</a>  </td>
-            </tr>
-          </tbody></table>
-      </div>
-      <!-- <img src="./static/tasks22.png" alt="Tasks and Datasets for Static Evaluation." style="height: 23vw;"> -->
-      <br><br>
-      <div class="content has-text-justified">
-        <h3 class="title is-4">(B) Result Analysis</h3>
-        <p>
-          To ensure robustness, we report the average of model performance using three different prompt variations. For public_sg_speech, openhermes, and alpaca datasets, we report the <a href="https://arxiv.org/html/2402.11161v4">cfm</a> metric. For other tasks, we report the macro F1 scores.
-
-  </p>
-      </div>
-
-
-
-          <div class="content has-text-justified">
-            <p>
-              In general, close sourced models like <a href="https://arxiv.org/abs/2312.11805">Gemini</a> and <a href="https://arxiv.org/abs/2312.11805">GPT4o</a> generally top the leaderboard: <a href="https://arxiv.org/abs/2312.11805">Gemini</a> has the highest performance on SLURP intent classification, MELD emotion recognition, CN_college_listen and <a href="https://arxiv.org/abs/2312.11805">GPT4o</a> performs the best on MUSTARD, IEMOCAP, CallHome, Fairspeech (age classification), and Commonvoice (accent classification) datasets. They also perform relatively well despite not achieving best performance, showing <b>good generalization and transferability in them</b>.
-              <br><br>
-              Among the open-sourced models, <a href="https://arxiv.org/abs/2407.10759">Qwen2-Audio</a> demonstrates outstanding performance on SpeechQA and Gender/Age classification tasks and <a href="https://arxiv.org/abs/2410.02678">DiVA</a> shows excellent humor detection and speech instruction following capability that outperforms all other models. They also show relatively good performance on other tasks, demonstrating <b>good generalizability</b>. <a href="https://arxiv.org/pdf/2309.05519">NextGPT</a> and <a href="https://arxiv.org/abs/2305.16355">PandaGPT</a> perform relatively worse, especially for tasks like intent and emotion recognition, accent recognition, and instruction following. They share similar encoder architecture (ImageBind) and this suggests <b>the limitation of using ImageBind for encoding audio features</b>.
-              <br><br>
-              We also perform evaluation for the sequential pipeline of <a href="https://arxiv.org/abs/2212.04356">Whisper</a> plus <a href="https://arxiv.org/abs/2407.21783">Llama3-8B-Instruct</a>. It shows relatively good performance for tasks like emotion recognition and speech QA, which means some of the data instances can be inferred from content only. However, for each and every task there are speech models outperforming the whisper+llama3 pipeline. This suggests that some information like emotion, relationship, and sarcasm can be <b>embedded in vocal cues</b> and <b>requires understanding beyond content</b>.
-
-      </p>
-          </div>
-
-          </div>
-	</div>
-	
-
-  <h2>Select a Benchmark (Task)</h2>
-    <select id="imageDropdown" onchange="updateImage()">
-        <option value="./static/static-1.png">Urfunny (Humor Detection)</option>
-        <option value="./static/static-2.png">Mustard (Sarcasm Detection)</option>
-        <option value="./static/static-3.png">SLURP (Intent Classification)</option>
-        <option value="./static/static-4.png">IEMOCAP (Emotion Classification)</option>
-        <option value="./static/static-5.png">MELD (Emotion Classification)</option>
-        <option value="./static/static-6.png">Public_SG_Speech (Speech QA)</option>
-        <option value="./static/static-7.png">CN_College_Listen (Speech QA)</option>
-        <option value="./static/static-8.png">LibriSpeech (Speech Grounding)</option>
-        <option value="./static/static-9.png">SLURP (Speech Entity Recognition)</option>
-        <option value="./static/static-10.png">CallHome (Relationship Classification)</option>
-        <option value="./static/static-11.png">CommonVoice (Gender Classification)</option>
-        <option value="./static/static-12.png">FairSpeech (Gender Classification)</option>
-        <option value="./static/static-13.png">CommonVoice (Age Classification)</option>
-        <option value="./static/static-14.png">FairSpeech (Age Classification)</option>
-        <option value="./static/static-15.png">CommonVoice (Accent Classification)</option>
-        <option value="./static/static-16.png">Covost2 (Language Classification)</option>
-        <option value="./static/static-17.png">Openhermes (Instruction Following)</option>
-        <option value="./static/static-18.png">Alpaca (Instruction Following)</option>
-    </select>
-
-    <!-- Image container -->
-    <div style="text-align: center;">
-        <img id="displayImage" src="./static/static-1.png" alt="Selected Image" width="800px">
-    </div>
-
-    <script>
-        // Function to update the image based on dropdown selection
-        function updateImage() {
-            const selectedImage = document.getElementById("imageDropdown").value;
-            document.getElementById("displayImage").src = selectedImage;
-        }
-    </script>      
-      
-      <div id="bigtable" class="content has-text-justified" style="width: 100%; margin: 0 auto; text-align: center;overflow-x: auto; place-items: center;">
-<!--
-        <style type="text/css">
-          .tg  {border-collapse:collapse;border-spacing:0;}
-          .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:13px;
-            overflow:hidden;padding:10px 5px;word-break:normal;}
-          .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:13px;
-            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-          .tg .tg-nylo{background-color:#e7eaed;border-color:inherit;color:#000000;text-align:center;vertical-align:middle}
-          .tg .tg-5jpz{background-color:#ccd2d8;border-color:inherit;color:#333333;text-align:center;vertical-align:middle}
-          .tg .tg-onad{background-color:#ccd2d8;border-color:inherit;text-align:center;vertical-align:top}
-          .tg .tg-nzbv{background-color:#ccd2d8;border-color:inherit;text-align:center;vertical-align:middle}
-          .tg .tg-l4ly{background-color:#ccd2d8;border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
-          .tg .tg-qs6o{background-color:#E7EAED;border-color:inherit;text-align:center;vertical-align:top}
-          .tg .tg-2l8w{background-color:#e7eaed;border-color:inherit;text-align:center;vertical-align:top}
-          .tg .tg-4uz0{background-color:#e7eaed;border-color:inherit;color:#333333;text-align:center;vertical-align:middle}
-          .tg .tg-sl80{background-color:#E7EAED;border-color:inherit;text-align:center;vertical-align:middle}
-          .tg .tg-xsus{background-color:#e7eaed;border-color:inherit;color:#333333;text-align:center;vertical-align:top}
-          .tg .tg-gfd7{background-color:#476788;border-color:inherit;color:#ffffff;text-align:center;vertical-align:middle}
-          .tg .tg-n5dk{background-color:#476788;border-color:inherit;font-weight:bold;text-align:center;vertical-align:middle}
-          .tg .tg-4wd8{background-color:#476788;border-color:inherit;color:#ffffff;font-weight:bold;text-align:center;vertical-align:middle}
-          .tg .tg-2yk0{background-color:#e7eaed;border-color:inherit;text-align:center;vertical-align:middle}
-          .tg .tg-r60o{background-color:#ccd2d8;border-color:inherit;color:#333;text-align:center;vertical-align:top}
-          .tg .tg-oo47{background-color:#ccd2d8;border-color:inherit;color:#333333;text-align:center;vertical-align:top}
-          </style>
-          <table class="tg"><thead>
-            <tr>
-              <th class="tg-gfd7" rowspan="2"><span style="font-weight:bold">Task</span></th>
-              <th class="tg-n5dk" rowspan="2"><span style="color:#FFF">Dataset</span></th>
-              <th class="tg-n5dk" colspan="7"><span style="color:#FFF">Open-Sourced</span></th>
-              <th class="tg-n5dk" colspan="2"><span style="color:#FFF">Close-Sourced</span></th>
-              <th class="tg-n5dk"><span style="color:#FFF">ASR</span><br><span style="color:#FFF">+Text Analysis</span></th>
-            </tr>
-            <tr>
-              <th class="tg-nylo"><span style="font-weight:bold">NextGPT</span> </th>
-              <th class="tg-nylo"><span style="font-weight:bold">PandaGPT</span></th>
-              <th class="tg-nylo"><span style="font-weight:bold">SpeechGPT</span></th>
-              <th class="tg-nylo"><span style="font-weight:bold">SALMONN</span></th>
-              <th class="tg-nylo"><span style="font-weight:bold">Qwen</span></th>
-              <th class="tg-nylo"><span style="font-weight:bold">Diva</span></th>
-              <th class="tg-nylo"><span style="font-weight:bold">Qwen2</span></th>
-              <th class="tg-nylo"><span style="font-weight:bold">Gemini</span></th>
-              <th class="tg-nylo"><span style="font-weight:bold">GPT4o</span></th>
-              <th class="tg-nylo"><span style="font-weight:bold">Whisper</span><br><span style="font-weight:bold">+Llama3</span></th>
-            </tr></thead>
-          <tbody>
-            <tr>
-              <td class="tg-gfd7"><span style="font-weight:700;font-style:normal">Humor</span><br><span style="font-weight:700;font-style:normal">Detection</span></td>
-              <td class="tg-5jpz"><span style="font-weight:bold">URFUNNY</span></td>
-              <td class="tg-nzbv"><span style="color:black">26.6</span></td>
-              <td class="tg-nzbv"><span style="color:black">42.6</span></td>
-              <td class="tg-nzbv"><span style="color:black">29.5</span></td>
-              <td class="tg-nzbv"><span style="color:black">39.2</span></td>
-              <td class="tg-nzbv"><span style="color:black">39.9</span></td>
-              <td class="tg-nzbv"><span style="font-weight:bold;color:black">46.2</span></td>
-              <td class="tg-nzbv"><span style="color:black">34.9</span></td>
-              <td class="tg-nzbv"><span style="color:black">35.7</span></td>
-              <td class="tg-nzbv"><span style="color:black">44.6</span></td>
-              <td class="tg-nzbv"><span style="color:black">37.8</span></td>
-            </tr>
-            <tr>
-              <td class="tg-4wd8">Sarcasm<br>Detection</td>
-              <td class="tg-4uz0"><span style="font-weight:bold">Mustard</span></td>
-              <td class="tg-2yk0"><span style="color:black">16.9</span></td>
-              <td class="tg-sl80"><span style="color:black">33.4</span></td>
-              <td class="tg-2yk0"><span style="color:black">27.2</span></td>
-              <td class="tg-sl80"><span style="color:black">34.6</span></td>
-              <td class="tg-2yk0"><span style="color:black">30.8</span></td>
-              <td class="tg-sl80"><span style="color:black">38.3</span></td>
-              <td class="tg-2yk0"><span style="color:black">41.5</span></td>
-              <td class="tg-sl80"><span style="color:black">36.0</span></td>
-              <td class="tg-2yk0"><span style="font-weight:bold;color:black">53.6</span></td>
-              <td class="tg-sl80"><span style="color:black">32.8</span></td>
-            </tr>
-            <tr>
-              <td class="tg-4wd8">Intent<br>Detection</td>
-              <td class="tg-5jpz"><span style="font-weight:bold">SLURP</span></td>
-              <td class="tg-nzbv"><span style="color:black">12.7</span></td>
-              <td class="tg-nzbv"><span style="color:black">13.9</span></td>
-              <td class="tg-nzbv"><span style="color:black">18.4</span></td>
-              <td class="tg-nzbv"><span style="color:black">35.5</span></td>
-              <td class="tg-nzbv"><span style="color:black">69.1</span></td>
-              <td class="tg-nzbv"><span style="color:black">61.5</span></td>
-              <td class="tg-nzbv"><span style="color:black">81.1</span></td>
-              <td class="tg-nzbv"><span style="font-weight:bold;color:black">91.4</span></td>
-              <td class="tg-nzbv"><span style="color:black">89.2</span></td>
-              <td class="tg-nzbv"><span style="color:black">64.8</span></td>
-            </tr>
-            <tr>
-              <td class="tg-4wd8" rowspan="2">Emotion<br>Recognition</td>
-              <td class="tg-4uz0"><span style="font-weight:bold">IEMOCAP</span></td>
-              <td class="tg-2yk0"><span style="color:black">11.5</span></td>
-              <td class="tg-sl80"><span style="color:black">16.4</span></td>
-              <td class="tg-2yk0"><span style="color:black">16.6</span></td>
-              <td class="tg-sl80"><span style="color:black">22.7</span></td>
-              <td class="tg-2yk0"><span style="color:black">21.2</span></td>
-              <td class="tg-sl80"><span style="color:black">26.4</span></td>
-              <td class="tg-2yk0"><span style="color:black">26.7</span></td>
-              <td class="tg-sl80"><span style="color:black">27.5</span></td>
-              <td class="tg-2yk0"><span style="font-weight:bold;color:black">31.5</span></td>
-              <td class="tg-sl80"><span style="color:black">25.2</span></td>
-            </tr>
-            <tr>
-              <td class="tg-5jpz"><span style="font-weight:bold">MELD</span></td>
-              <td class="tg-nzbv"><span style="color:black">5.7</span></td>
-              <td class="tg-nzbv"><span style="color:black">5.8</span></td>
-              <td class="tg-nzbv"><span style="color:black">6.1</span></td>
-              <td class="tg-nzbv"><span style="color:black">9.7</span></td>
-              <td class="tg-nzbv"><span style="color:black">11.6</span></td>
-              <td class="tg-nzbv"><span style="color:black">23.9</span></td>
-              <td class="tg-nzbv"><span style="color:black">19.6</span></td>
-              <td class="tg-nzbv"><span style="font-weight:bold;color:black">26.9</span></td>
-              <td class="tg-nzbv"><span style="color:black">26.6</span></td>
-              <td class="tg-nzbv"><span style="color:black">22.8</span></td>
-            </tr>
-            <tr>
-              <td class="tg-gfd7" rowspan="2"><span style="font-weight:bold">Speech QA</span></td>
-              <td class="tg-xsus"><span style="font-weight:bold">Cn-college-listen</span> </td>
-              <td class="tg-2l8w"><span style="color:black">20.5</span></td>
-              <td class="tg-qs6o"><span style="color:black">25.3</span></td>
-              <td class="tg-2l8w"><span style="color:black">19.6</span></td>
-              <td class="tg-qs6o"><span style="color:black">32.9</span></td>
-              <td class="tg-2l8w"><span style="color:black">44.9</span></td>
-              <td class="tg-qs6o"><span style="color:black">36.9</span></td>
-              <td class="tg-2l8w"><span style="color:black">55.7</span></td>
-              <td class="tg-qs6o"><span style="font-weight:bold;color:black">66.1</span></td>
-              <td class="tg-2l8w"><span style="color:black">65.9</span></td>
-              <td class="tg-qs6o"><span style="color:black">62.6</span></td>
-            </tr>
-            <tr>
-              <td class="tg-r60o"><span style="font-weight:bold">public_sg_speech</span></td>
-              <td class="tg-onad"><span style="color:black">55.3</span></td>
-              <td class="tg-onad"><span style="color:black">53.6</span></td>
-              <td class="tg-onad"><span style="color:black">56.0</span></td>
-              <td class="tg-onad"><span style="color:black">69.4</span></td>
-              <td class="tg-onad"><span style="font-weight:bold;color:black">75.7</span></td>
-              <td class="tg-onad"><span style="color:black">64.2</span></td>
-              <td class="tg-onad"><span style="color:black">68.8</span></td>
-              <td class="tg-onad"><span style="color:black">62.3</span></td>
-              <td class="tg-onad"><span style="color:black">64.4</span></td>
-              <td class="tg-onad"><span style="color:black">50.3</span></td>
-            </tr>
-            <tr>
-              <td class="tg-gfd7" rowspan="5"><span style="font-weight:bold">Demographic</span><br><span style="font-weight:bold">Info</span><br><span style="font-weight:bold">Recognition</span></td>
-              <td class="tg-xsus"><span style="font-weight:bold">CommonVoice-Gender</span></td>
-              <td class="tg-2l8w"><span style="color:black">17.9</span></td>
-              <td class="tg-qs6o"><span style="color:black">26.4</span></td>
-              <td class="tg-2l8w"><span style="color:black">22.1</span></td>
-              <td class="tg-qs6o"><span style="color:black">12.8</span></td>
-              <td class="tg-2l8w"><span style="color:black">48.0</span></td>
-              <td class="tg-qs6o"><span style="color:black">31.1</span></td>
-              <td class="tg-2l8w"><span style="font-weight:bold;color:black">79.8</span></td>
-              <td class="tg-qs6o"><span style="color:black">38.3</span></td>
-              <td class="tg-2l8w"><span style="color:black">18.0</span></td>
-              <td class="tg-qs6o"><span style="color:black">30.1</span></td>
-            </tr>
-            <tr>
-              <td class="tg-oo47"><span style="font-weight:bold">Fairspeech-Gender</span></td>
-              <td class="tg-onad"><span style="color:black">30.2</span></td>
-              <td class="tg-l4ly">58.5</td>
-              <td class="tg-onad"><span style="color:black">29.4</span></td>
-              <td class="tg-onad"><span style="color:black">20.8</span></td>
-              <td class="tg-onad"><span style="color:black">43.0</span></td>
-              <td class="tg-onad"><span style="color:black">29.9</span></td>
-              <td class="tg-onad"><span style="color:black">58.3</span></td>
-              <td class="tg-onad"><span style="color:black">49.5</span></td>
-              <td class="tg-onad"><span style="color:black">9.1</span></td>
-              <td class="tg-onad"><span style="color:black">32.6</span></td>
-            </tr>
-            <tr>
-              <td class="tg-xsus"><span style="font-weight:bold">CommonVoice-Age</span></td>
-              <td class="tg-2l8w"><span style="color:black">7.0</span></td>
-              <td class="tg-qs6o"><span style="font-weight:bold;color:black">11.5</span></td>
-              <td class="tg-2l8w"><span style="color:black">11.0</span></td>
-              <td class="tg-qs6o"><span style="color:black">2.9</span></td>
-              <td class="tg-2l8w"><span style="color:black">4.2</span></td>
-              <td class="tg-qs6o"><span style="color:black">7.3</span></td>
-              <td class="tg-2l8w"><span style="color:black">10.3</span></td>
-              <td class="tg-qs6o"><span style="color:black">5.6</span></td>
-              <td class="tg-2l8w"><span style="color:black">9.1</span></td>
-              <td class="tg-qs6o"><span style="color:black">9.7</span></td>
-            </tr>
-            <tr>
-              <td class="tg-oo47"><span style="font-weight:bold">Fairspeech-Age</span></td>
-              <td class="tg-onad"><span style="color:black">9.9</span></td>
-              <td class="tg-onad"><span style="color:black">11.9</span></td>
-              <td class="tg-onad"><span style="color:black">11.4</span></td>
-              <td class="tg-onad"><span style="color:black">8.3</span></td>
-              <td class="tg-onad"><span style="color:black">12.5</span></td>
-              <td class="tg-onad"><span style="color:black">13.6</span></td>
-              <td class="tg-onad"><span style="color:black">14.3</span></td>
-              <td class="tg-onad"><span style="color:black">10.1</span></td>
-              <td class="tg-onad"><span style="font-weight:bold;color:black">15.4</span></td>
-              <td class="tg-onad"><span style="color:black">12.9</span></td>
-            </tr>
-            <tr>
-              <td class="tg-xsus"><span style="font-weight:bold">CommonVoice-Accent</span></td>
-              <td class="tg-2l8w"><span style="color:black">6.8</span></td>
-              <td class="tg-qs6o"><span style="color:black">4.0</span></td>
-              <td class="tg-2l8w"><span style="color:black">1.8</span></td>
-              <td class="tg-qs6o"><span style="color:black">3.3</span></td>
-              <td class="tg-2l8w"><span style="color:black">5.0</span></td>
-              <td class="tg-qs6o"><span style="color:black">13.0</span></td>
-              <td class="tg-2l8w"><span style="color:black">5.4</span></td>
-              <td class="tg-qs6o"><span style="color:black">24.5</span></td>
-              <td class="tg-2l8w"><span style="font-weight:bold;color:black">35.3</span></td>
-              <td class="tg-qs6o"><span style="color:black">13.9</span></td>
-            </tr>
-            <tr>
-              <td class="tg-gfd7"><span style="font-weight:bold">Relationship</span><br><span style="font-weight:bold">Classification</span></td>
-              <td class="tg-r60o"><span style="font-weight:bold">CallHome</span></td>
-              <td class="tg-onad"><span style="color:black">27.4</span></td>
-              <td class="tg-onad"><span style="color:black">44.2</span></td>
-              <td class="tg-onad"><span style="color:black">17.3</span></td>
-              <td class="tg-onad"><span style="color:black">31.7</span></td>
-              <td class="tg-onad"><span style="color:black">30.9</span></td>
-              <td class="tg-onad"><span style="color:black">34.9</span></td>
-              <td class="tg-onad"><span style="color:black">17.3</span></td>
-              <td class="tg-onad"><span style="color:black">35.9</span></td>
-              <td class="tg-onad"><span style="font-weight:bold;color:black">59.7</span></td>
-              <td class="tg-onad"><span style="color:black">22.8</span></td>
-            </tr>
-            <tr>
-              <td class="tg-gfd7" rowspan="2"><span style="font-weight:bold">Instruction</span><br><span style="font-weight:bold">Following</span></td>
-              <td class="tg-xsus"><span style="font-weight:bold">openhermes</span></td>
-              <td class="tg-2l8w"><span style="color:black">7.0</span></td>
-              <td class="tg-qs6o"><span style="color:black">27.3</span></td>
-              <td class="tg-2l8w"><span style="color:black">51.5</span></td>
-              <td class="tg-qs6o"><span style="color:black">43.9</span></td>
-              <td class="tg-2l8w"><span style="color:black">50.3</span></td>
-              <td class="tg-qs6o"><span style="font-weight:bold;color:black">66.2</span></td>
-              <td class="tg-2l8w"><span style="color:black">64.0</span></td>
-              <td class="tg-qs6o"><span style="color:black">56.0</span></td>
-              <td class="tg-2l8w"><span style="color:black">63.7</span></td>
-              <td class="tg-qs6o"><span style="color:black">45.9</span></td>
-            </tr>
-            <tr>
-              <td class="tg-oo47"><span style="font-weight:bold">alpaca_audio</span></td>
-              <td class="tg-onad"><span style="color:black">5.9</span></td>
-              <td class="tg-onad"><span style="color:black">24.0</span></td>
-              <td class="tg-onad"><span style="color:black">50.0</span></td>
-              <td class="tg-onad"><span style="color:black">32.2</span></td>
-              <td class="tg-onad"><span style="color:black">40.8</span></td>
-              <td class="tg-onad"><span style="font-weight:bold;color:black">67.0</span></td>
-              <td class="tg-onad"><span style="color:black">61.3</span></td>
-              <td class="tg-onad"><span style="color:black">62.3</span></td>
-              <td class="tg-onad"><span style="color:black">64.2</span></td>
-              <td class="tg-onad"><span style="color:black">44.9</span></td>
-            </tr>
-          </tbody></table>-->
-          
-      </div>
-    </section>
-
-    <section class="section" style="background-color:#ffffff">
-      <div class="container is-max-desktop">
-	<!-- Abstract. -->
-	<div class="columns is-centered has-text-centered">
-          <div class="column is-six-fifths">
-            <h2 class="title is-3">Interactive Evaluation</h2>
-	    <div class="content has-text-justified">
-        <h3 class="title is-4">(A) User Preference</h3>
-              <p>
-    As an initial effort, we collected a total 5000 votes using Talk Arena for pairwise comparisons among GPT4o, Gemini-1.5-pro, Typhoon, Qwen2-Audio and DiVA, which are top performing models from the results of static evaluation. For each of the ten combinations, we collect 500 votes from more than 50 different crowdworkers.
-        
-  </p>
+         </div>
+         <h2>Select a Benchmark (Task)</h2>
+         <select id="imageDropdown" onchange="updateImage()">
+            <option value="./static/static-1.png">Urfunny (Humor Detection)</option>
+            <option value="./static/static-2.png">Mustard (Sarcasm Detection)</option>
+            <option value="./static/static-3.png">SLURP (Intent Classification)</option>
+            <option value="./static/static-4.png">IEMOCAP (Emotion Classification)</option>
+            <option value="./static/static-5.png">MELD (Emotion Classification)</option>
+            <option value="./static/static-6.png">Public_SG_Speech (Speech QA)</option>
+            <option value="./static/static-7.png">CN_College_Listen (Speech QA)</option>
+            <option value="./static/static-8.png">LibriSpeech (Speech Grounding)</option>
+            <option value="./static/static-9.png">SLURP (Speech Entity Recognition)</option>
+            <option value="./static/static-10.png">CallHome (Relationship Classification)</option>
+            <option value="./static/static-11.png">CommonVoice (Gender Classification)</option>
+            <option value="./static/static-12.png">FairSpeech (Gender Classification)</option>
+            <option value="./static/static-13.png">CommonVoice (Age Classification)</option>
+            <option value="./static/static-14.png">FairSpeech (Age Classification)</option>
+            <option value="./static/static-15.png">CommonVoice (Accent Classification)</option>
+            <option value="./static/static-16.png">Covost2 (Language Classification)</option>
+            <option value="./static/static-17.png">Openhermes (Instruction Following)</option>
+            <option value="./static/static-18.png">Alpaca (Instruction Following)</option>
+         </select>
+         <!-- Image container -->
+         <div style="text-align: center;">
+            <img id="displayImage" src="./static/static-1.png" alt="Selected Image" width="800px">
+         </div>
+         <script>
+            // Function to update the image based on dropdown selection
+            function updateImage() {
+                const selectedImage = document.getElementById("imageDropdown").value;
+                document.getElementById("displayImage").src = selectedImage;
+            }
+         </script>      
+         <div id="bigtable" class="content has-text-justified" style="width: 100%; margin: 0 auto; text-align: center;overflow-x: auto; place-items: center;">
+            <!--
+               <style type="text/css">
+                 .tg  {border-collapse:collapse;border-spacing:0;}
+                 .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:13px;
+                   overflow:hidden;padding:10px 5px;word-break:normal;}
+                 .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:13px;
+                   font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+                 .tg .tg-nylo{background-color:#e7eaed;border-color:inherit;color:#000000;text-align:center;vertical-align:middle}
+                 .tg .tg-5jpz{background-color:#ccd2d8;border-color:inherit;color:#333333;text-align:center;vertical-align:middle}
+                 .tg .tg-onad{background-color:#ccd2d8;border-color:inherit;text-align:center;vertical-align:top}
+                 .tg .tg-nzbv{background-color:#ccd2d8;border-color:inherit;text-align:center;vertical-align:middle}
+                 .tg .tg-l4ly{background-color:#ccd2d8;border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
+                 .tg .tg-qs6o{background-color:#E7EAED;border-color:inherit;text-align:center;vertical-align:top}
+                 .tg .tg-2l8w{background-color:#e7eaed;border-color:inherit;text-align:center;vertical-align:top}
+                 .tg .tg-4uz0{background-color:#e7eaed;border-color:inherit;color:#333333;text-align:center;vertical-align:middle}
+                 .tg .tg-sl80{background-color:#E7EAED;border-color:inherit;text-align:center;vertical-align:middle}
+                 .tg .tg-xsus{background-color:#e7eaed;border-color:inherit;color:#333333;text-align:center;vertical-align:top}
+                 .tg .tg-gfd7{background-color:#476788;border-color:inherit;color:#ffffff;text-align:center;vertical-align:middle}
+                 .tg .tg-n5dk{background-color:#476788;border-color:inherit;font-weight:bold;text-align:center;vertical-align:middle}
+                 .tg .tg-4wd8{background-color:#476788;border-color:inherit;color:#ffffff;font-weight:bold;text-align:center;vertical-align:middle}
+                 .tg .tg-2yk0{background-color:#e7eaed;border-color:inherit;text-align:center;vertical-align:middle}
+                 .tg .tg-r60o{background-color:#ccd2d8;border-color:inherit;color:#333;text-align:center;vertical-align:top}
+                 .tg .tg-oo47{background-color:#ccd2d8;border-color:inherit;color:#333333;text-align:center;vertical-align:top}
+                 </style>
+                 <table class="tg"><thead>
+                   <tr>
+                     <th class="tg-gfd7" rowspan="2"><span style="font-weight:bold">Task</span></th>
+                     <th class="tg-n5dk" rowspan="2"><span style="color:#FFF">Dataset</span></th>
+                     <th class="tg-n5dk" colspan="7"><span style="color:#FFF">Open-Sourced</span></th>
+                     <th class="tg-n5dk" colspan="2"><span style="color:#FFF">Close-Sourced</span></th>
+                     <th class="tg-n5dk"><span style="color:#FFF">ASR</span><br><span style="color:#FFF">+Text Analysis</span></th>
+                   </tr>
+                   <tr>
+                     <th class="tg-nylo"><span style="font-weight:bold">NextGPT</span> </th>
+                     <th class="tg-nylo"><span style="font-weight:bold">PandaGPT</span></th>
+                     <th class="tg-nylo"><span style="font-weight:bold">SpeechGPT</span></th>
+                     <th class="tg-nylo"><span style="font-weight:bold">SALMONN</span></th>
+                     <th class="tg-nylo"><span style="font-weight:bold">Qwen</span></th>
+                     <th class="tg-nylo"><span style="font-weight:bold">Diva</span></th>
+                     <th class="tg-nylo"><span style="font-weight:bold">Qwen2</span></th>
+                     <th class="tg-nylo"><span style="font-weight:bold">Gemini</span></th>
+                     <th class="tg-nylo"><span style="font-weight:bold">GPT4o</span></th>
+                     <th class="tg-nylo"><span style="font-weight:bold">Whisper</span><br><span style="font-weight:bold">+Llama3</span></th>
+                   </tr></thead>
+                 <tbody>
+                   <tr>
+                     <td class="tg-gfd7"><span style="font-weight:700;font-style:normal">Humor</span><br><span style="font-weight:700;font-style:normal">Detection</span></td>
+                     <td class="tg-5jpz"><span style="font-weight:bold">URFUNNY</span></td>
+                     <td class="tg-nzbv"><span style="color:black">26.6</span></td>
+                     <td class="tg-nzbv"><span style="color:black">42.6</span></td>
+                     <td class="tg-nzbv"><span style="color:black">29.5</span></td>
+                     <td class="tg-nzbv"><span style="color:black">39.2</span></td>
+                     <td class="tg-nzbv"><span style="color:black">39.9</span></td>
+                     <td class="tg-nzbv"><span style="font-weight:bold;color:black">46.2</span></td>
+                     <td class="tg-nzbv"><span style="color:black">34.9</span></td>
+                     <td class="tg-nzbv"><span style="color:black">35.7</span></td>
+                     <td class="tg-nzbv"><span style="color:black">44.6</span></td>
+                     <td class="tg-nzbv"><span style="color:black">37.8</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-4wd8">Sarcasm<br>Detection</td>
+                     <td class="tg-4uz0"><span style="font-weight:bold">Mustard</span></td>
+                     <td class="tg-2yk0"><span style="color:black">16.9</span></td>
+                     <td class="tg-sl80"><span style="color:black">33.4</span></td>
+                     <td class="tg-2yk0"><span style="color:black">27.2</span></td>
+                     <td class="tg-sl80"><span style="color:black">34.6</span></td>
+                     <td class="tg-2yk0"><span style="color:black">30.8</span></td>
+                     <td class="tg-sl80"><span style="color:black">38.3</span></td>
+                     <td class="tg-2yk0"><span style="color:black">41.5</span></td>
+                     <td class="tg-sl80"><span style="color:black">36.0</span></td>
+                     <td class="tg-2yk0"><span style="font-weight:bold;color:black">53.6</span></td>
+                     <td class="tg-sl80"><span style="color:black">32.8</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-4wd8">Intent<br>Detection</td>
+                     <td class="tg-5jpz"><span style="font-weight:bold">SLURP</span></td>
+                     <td class="tg-nzbv"><span style="color:black">12.7</span></td>
+                     <td class="tg-nzbv"><span style="color:black">13.9</span></td>
+                     <td class="tg-nzbv"><span style="color:black">18.4</span></td>
+                     <td class="tg-nzbv"><span style="color:black">35.5</span></td>
+                     <td class="tg-nzbv"><span style="color:black">69.1</span></td>
+                     <td class="tg-nzbv"><span style="color:black">61.5</span></td>
+                     <td class="tg-nzbv"><span style="color:black">81.1</span></td>
+                     <td class="tg-nzbv"><span style="font-weight:bold;color:black">91.4</span></td>
+                     <td class="tg-nzbv"><span style="color:black">89.2</span></td>
+                     <td class="tg-nzbv"><span style="color:black">64.8</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-4wd8" rowspan="2">Emotion<br>Recognition</td>
+                     <td class="tg-4uz0"><span style="font-weight:bold">IEMOCAP</span></td>
+                     <td class="tg-2yk0"><span style="color:black">11.5</span></td>
+                     <td class="tg-sl80"><span style="color:black">16.4</span></td>
+                     <td class="tg-2yk0"><span style="color:black">16.6</span></td>
+                     <td class="tg-sl80"><span style="color:black">22.7</span></td>
+                     <td class="tg-2yk0"><span style="color:black">21.2</span></td>
+                     <td class="tg-sl80"><span style="color:black">26.4</span></td>
+                     <td class="tg-2yk0"><span style="color:black">26.7</span></td>
+                     <td class="tg-sl80"><span style="color:black">27.5</span></td>
+                     <td class="tg-2yk0"><span style="font-weight:bold;color:black">31.5</span></td>
+                     <td class="tg-sl80"><span style="color:black">25.2</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-5jpz"><span style="font-weight:bold">MELD</span></td>
+                     <td class="tg-nzbv"><span style="color:black">5.7</span></td>
+                     <td class="tg-nzbv"><span style="color:black">5.8</span></td>
+                     <td class="tg-nzbv"><span style="color:black">6.1</span></td>
+                     <td class="tg-nzbv"><span style="color:black">9.7</span></td>
+                     <td class="tg-nzbv"><span style="color:black">11.6</span></td>
+                     <td class="tg-nzbv"><span style="color:black">23.9</span></td>
+                     <td class="tg-nzbv"><span style="color:black">19.6</span></td>
+                     <td class="tg-nzbv"><span style="font-weight:bold;color:black">26.9</span></td>
+                     <td class="tg-nzbv"><span style="color:black">26.6</span></td>
+                     <td class="tg-nzbv"><span style="color:black">22.8</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-gfd7" rowspan="2"><span style="font-weight:bold">Speech QA</span></td>
+                     <td class="tg-xsus"><span style="font-weight:bold">Cn-college-listen</span> </td>
+                     <td class="tg-2l8w"><span style="color:black">20.5</span></td>
+                     <td class="tg-qs6o"><span style="color:black">25.3</span></td>
+                     <td class="tg-2l8w"><span style="color:black">19.6</span></td>
+                     <td class="tg-qs6o"><span style="color:black">32.9</span></td>
+                     <td class="tg-2l8w"><span style="color:black">44.9</span></td>
+                     <td class="tg-qs6o"><span style="color:black">36.9</span></td>
+                     <td class="tg-2l8w"><span style="color:black">55.7</span></td>
+                     <td class="tg-qs6o"><span style="font-weight:bold;color:black">66.1</span></td>
+                     <td class="tg-2l8w"><span style="color:black">65.9</span></td>
+                     <td class="tg-qs6o"><span style="color:black">62.6</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-r60o"><span style="font-weight:bold">public_sg_speech</span></td>
+                     <td class="tg-onad"><span style="color:black">55.3</span></td>
+                     <td class="tg-onad"><span style="color:black">53.6</span></td>
+                     <td class="tg-onad"><span style="color:black">56.0</span></td>
+                     <td class="tg-onad"><span style="color:black">69.4</span></td>
+                     <td class="tg-onad"><span style="font-weight:bold;color:black">75.7</span></td>
+                     <td class="tg-onad"><span style="color:black">64.2</span></td>
+                     <td class="tg-onad"><span style="color:black">68.8</span></td>
+                     <td class="tg-onad"><span style="color:black">62.3</span></td>
+                     <td class="tg-onad"><span style="color:black">64.4</span></td>
+                     <td class="tg-onad"><span style="color:black">50.3</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-gfd7" rowspan="5"><span style="font-weight:bold">Demographic</span><br><span style="font-weight:bold">Info</span><br><span style="font-weight:bold">Recognition</span></td>
+                     <td class="tg-xsus"><span style="font-weight:bold">CommonVoice-Gender</span></td>
+                     <td class="tg-2l8w"><span style="color:black">17.9</span></td>
+                     <td class="tg-qs6o"><span style="color:black">26.4</span></td>
+                     <td class="tg-2l8w"><span style="color:black">22.1</span></td>
+                     <td class="tg-qs6o"><span style="color:black">12.8</span></td>
+                     <td class="tg-2l8w"><span style="color:black">48.0</span></td>
+                     <td class="tg-qs6o"><span style="color:black">31.1</span></td>
+                     <td class="tg-2l8w"><span style="font-weight:bold;color:black">79.8</span></td>
+                     <td class="tg-qs6o"><span style="color:black">38.3</span></td>
+                     <td class="tg-2l8w"><span style="color:black">18.0</span></td>
+                     <td class="tg-qs6o"><span style="color:black">30.1</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-oo47"><span style="font-weight:bold">Fairspeech-Gender</span></td>
+                     <td class="tg-onad"><span style="color:black">30.2</span></td>
+                     <td class="tg-l4ly">58.5</td>
+                     <td class="tg-onad"><span style="color:black">29.4</span></td>
+                     <td class="tg-onad"><span style="color:black">20.8</span></td>
+                     <td class="tg-onad"><span style="color:black">43.0</span></td>
+                     <td class="tg-onad"><span style="color:black">29.9</span></td>
+                     <td class="tg-onad"><span style="color:black">58.3</span></td>
+                     <td class="tg-onad"><span style="color:black">49.5</span></td>
+                     <td class="tg-onad"><span style="color:black">9.1</span></td>
+                     <td class="tg-onad"><span style="color:black">32.6</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-xsus"><span style="font-weight:bold">CommonVoice-Age</span></td>
+                     <td class="tg-2l8w"><span style="color:black">7.0</span></td>
+                     <td class="tg-qs6o"><span style="font-weight:bold;color:black">11.5</span></td>
+                     <td class="tg-2l8w"><span style="color:black">11.0</span></td>
+                     <td class="tg-qs6o"><span style="color:black">2.9</span></td>
+                     <td class="tg-2l8w"><span style="color:black">4.2</span></td>
+                     <td class="tg-qs6o"><span style="color:black">7.3</span></td>
+                     <td class="tg-2l8w"><span style="color:black">10.3</span></td>
+                     <td class="tg-qs6o"><span style="color:black">5.6</span></td>
+                     <td class="tg-2l8w"><span style="color:black">9.1</span></td>
+                     <td class="tg-qs6o"><span style="color:black">9.7</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-oo47"><span style="font-weight:bold">Fairspeech-Age</span></td>
+                     <td class="tg-onad"><span style="color:black">9.9</span></td>
+                     <td class="tg-onad"><span style="color:black">11.9</span></td>
+                     <td class="tg-onad"><span style="color:black">11.4</span></td>
+                     <td class="tg-onad"><span style="color:black">8.3</span></td>
+                     <td class="tg-onad"><span style="color:black">12.5</span></td>
+                     <td class="tg-onad"><span style="color:black">13.6</span></td>
+                     <td class="tg-onad"><span style="color:black">14.3</span></td>
+                     <td class="tg-onad"><span style="color:black">10.1</span></td>
+                     <td class="tg-onad"><span style="font-weight:bold;color:black">15.4</span></td>
+                     <td class="tg-onad"><span style="color:black">12.9</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-xsus"><span style="font-weight:bold">CommonVoice-Accent</span></td>
+                     <td class="tg-2l8w"><span style="color:black">6.8</span></td>
+                     <td class="tg-qs6o"><span style="color:black">4.0</span></td>
+                     <td class="tg-2l8w"><span style="color:black">1.8</span></td>
+                     <td class="tg-qs6o"><span style="color:black">3.3</span></td>
+                     <td class="tg-2l8w"><span style="color:black">5.0</span></td>
+                     <td class="tg-qs6o"><span style="color:black">13.0</span></td>
+                     <td class="tg-2l8w"><span style="color:black">5.4</span></td>
+                     <td class="tg-qs6o"><span style="color:black">24.5</span></td>
+                     <td class="tg-2l8w"><span style="font-weight:bold;color:black">35.3</span></td>
+                     <td class="tg-qs6o"><span style="color:black">13.9</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-gfd7"><span style="font-weight:bold">Relationship</span><br><span style="font-weight:bold">Classification</span></td>
+                     <td class="tg-r60o"><span style="font-weight:bold">CallHome</span></td>
+                     <td class="tg-onad"><span style="color:black">27.4</span></td>
+                     <td class="tg-onad"><span style="color:black">44.2</span></td>
+                     <td class="tg-onad"><span style="color:black">17.3</span></td>
+                     <td class="tg-onad"><span style="color:black">31.7</span></td>
+                     <td class="tg-onad"><span style="color:black">30.9</span></td>
+                     <td class="tg-onad"><span style="color:black">34.9</span></td>
+                     <td class="tg-onad"><span style="color:black">17.3</span></td>
+                     <td class="tg-onad"><span style="color:black">35.9</span></td>
+                     <td class="tg-onad"><span style="font-weight:bold;color:black">59.7</span></td>
+                     <td class="tg-onad"><span style="color:black">22.8</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-gfd7" rowspan="2"><span style="font-weight:bold">Instruction</span><br><span style="font-weight:bold">Following</span></td>
+                     <td class="tg-xsus"><span style="font-weight:bold">openhermes</span></td>
+                     <td class="tg-2l8w"><span style="color:black">7.0</span></td>
+                     <td class="tg-qs6o"><span style="color:black">27.3</span></td>
+                     <td class="tg-2l8w"><span style="color:black">51.5</span></td>
+                     <td class="tg-qs6o"><span style="color:black">43.9</span></td>
+                     <td class="tg-2l8w"><span style="color:black">50.3</span></td>
+                     <td class="tg-qs6o"><span style="font-weight:bold;color:black">66.2</span></td>
+                     <td class="tg-2l8w"><span style="color:black">64.0</span></td>
+                     <td class="tg-qs6o"><span style="color:black">56.0</span></td>
+                     <td class="tg-2l8w"><span style="color:black">63.7</span></td>
+                     <td class="tg-qs6o"><span style="color:black">45.9</span></td>
+                   </tr>
+                   <tr>
+                     <td class="tg-oo47"><span style="font-weight:bold">alpaca_audio</span></td>
+                     <td class="tg-onad"><span style="color:black">5.9</span></td>
+                     <td class="tg-onad"><span style="color:black">24.0</span></td>
+                     <td class="tg-onad"><span style="color:black">50.0</span></td>
+                     <td class="tg-onad"><span style="color:black">32.2</span></td>
+                     <td class="tg-onad"><span style="color:black">40.8</span></td>
+                     <td class="tg-onad"><span style="font-weight:bold;color:black">67.0</span></td>
+                     <td class="tg-onad"><span style="color:black">61.3</span></td>
+                     <td class="tg-onad"><span style="color:black">62.3</span></td>
+                     <td class="tg-onad"><span style="color:black">64.2</span></td>
+                     <td class="tg-onad"><span style="color:black">44.9</span></td>
+                   </tr>
+                 </tbody></table>-->
+         </div>
+      </section>
+      <section class="section" style="background-color:#ffffff">
+         <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+               <div class="column is-six-fifths">
+                  <h2 class="title is-3">Interactive Evaluation</h2>
+                  <div class="content has-text-justified">
+                     <h3 class="title is-4">(A) User Preference</h3>
+                     <p>
+                        As an initial effort, we collected a total 5000 votes using Talk Arena for pairwise comparisons among GPT4o, Gemini-1.5-pro, Typhoon, Qwen2-Audio and DiVA, which are top performing models from the results of static evaluation. For each of the ten combinations, we collect 500 votes from more than 50 different crowdworkers.
+                     </p>
+                  </div>
+                  <img src="./static/user_study_2.png" alt="QA results on Spoken Dialect QA and HeySQUAD. DiVA significantly (0.05) outperforms SALMONN and both Qwen Audio models." style="width: 68vw; height: 34vw;">
+                  <div class="content has-text-justified">
+                     <p></p>
+                     We applied Bradley Terry model to pariwise voting results to get a ranking for the five models tested. The final result shows a ranking of <b>DiVA</b>, <b>GPT4o</b>, <b>Gemini-1.5-pro</b>, <b>Qwen2-Audio</b>, <b>Typhoon-1.5</b> (most preferred to less preferred).
+                     <h3 class="title is-4">(B) Comparison with Static Evaluation</h3>
+                     We compare the user preference result in interactive evaluation to that of static evaluation by computing the top-k Kendall Tau Distance between rank in static evaluation and that in interactive evaluation:
+                     </p>
+                  </div>
+                  <img src="./static/rank_distance.png" alt="Speech Translation results on COVOST2. Qwen 2 performs the strongest on the most tasks, with DiVA coming in at second." style="height: 30vw;">
+                  <div class="content has-text-justified">
+                     <p>
+                        Here are some observations:
+                        <br>
+                        1) <b>None</b> of the static bench reflects exactly the same rank in interactive eval
+                        <br>
+                        2) Rank on <b>emotion recognition</b> and <b>language detection</b> benchmark is most similar to that in interactive eval
+                        <br>
+                        3) Rank on <b>gender detection</b> and <b>nuanced intent (humor, sarcasm) detection</b> are not so correlated with that in interactive eval
+                        <br/>
+                     <h3 class="title is-4">(C) User Queries</h3>
+                     We also perform qualitative analysis for user voice queries and obtained some insights:
+                     <br><br>
+                     <b>Topics of user queries.</b> 
+                     <br>
+                     We identify three common types of user queries:
+                     <br>
+                     1) <b>Pragmatic queries</b> like resume building tips, weather and time checking. These queries are mostly short (one sentence only). It usually requires the audio model to ask more about the context to provide a personalized response.
+                     <br>
+                     2) <b>Knowledge expansion</b> questions like asking about theory of relativity. These queries need the audio model to be well equipped with a diverse and comprehensive knowledge base to provide factual and detailed information across a wide range of topics.
+                     <br>
+                     3) <b>Personal sharing</b> on recent dilemma, personal opinions and habits. These queries are often longer and more elaborated. To provide good responses, the voice assistant may need to make inferences about the users' tone and capture details well enough.
+                     <br><br>
+                     <b>Difference from text queries.</b> 
+                     <br>
+                     Unlike how users interact with text-only LLMs through typing, we found some unique aspects in speech interaction:
+                     <br>
+                     1) <b>Background noises</b> such as conversations in crowded or outdoor settings. This brings about new challenges for AI models, as they need to effectively process spoken input while distinguishing the user's voice from surrounding noises to ensure accurate interpretation and seamless interaction.
+                     <br>
+                     2) <b>Vocal cues</b> like pauses, laghter, tone, pitch, and accent. These features deliver social information about the speaker's emotion and identity beyond words.
+                     </p>
+                  </div>
+               </div>
             </div>
-	    <img src="./static/user_study_2.png" alt="QA results on Spoken Dialect QA and HeySQUAD. DiVA significantly (0.05) outperforms SALMONN and both Qwen Audio models." style="width: 68vw; height: 34vw;">
-            <div class="content has-text-justified">
-              <p></p>
-		We applied Bradley Terry model to pariwise voting results to get a ranking for the five models tested. The final result shows a ranking of <b>DiVA</b>, <b>GPT4o</b>, <b>Gemini-1.5-pro</b>, <b>Qwen2-Audio</b>, <b>Typhoon-1.5</b> (most preferred to less preferred).
-
-<h3 class="title is-4">(B) Comparison with Static Evaluation</h3>
-		We compare the user preference result in interactive evaluation to that of static evaluation by computing the top-k Kendall Tau Distance between rank in static evaluation and that in interactive evaluation:
-	      </p>
+         </div>
+      </section>
+      <section class="section" style="background-color:#ffffff">
+         <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+               <div class="column is-six-fifths">
+                  <h2 class="title is-3">Ethics and Disclosure</h2>
+                  <div class="content has-text-justified">
+                     This study has been approved by the Institutional Review Board (IRB) at the researchers' institution, and we obtained participant consent with a standard institutional consent form.
+                  </div>
+               </div>
             </div>
-	    <img src="./static/rank_distance.png" alt="Speech Translation results on COVOST2. Qwen 2 performs the strongest on the most tasks, with DiVA coming in at second." style="height: 30vw;">
-            <div class="content has-text-justified">
-              <p>
-                Here are some observations:
-                <br>
-                1) <b>None</b> of the static bench reflects exactly the same rank in interactive eval
-                <br>
-                2) Rank on <b>emotion recognition</b> and <b>language detection</b> benchmark is most similar to that in interactive eval
-                <br>
-                3) Rank on <b>gender detection</b> and <b>nuanced intent (humor, sarcasm) detection</b> are not so correlated with that in interactive eval
-
-		<br/>
-
-<h3 class="title is-4">(C) User Queries</h3>
-We also perform qualitative analysis for user voice queries and obtained some insights:
-<br><br>
-<b>Topics of user queries.</b> 
-<br>
-We identify three common types of user queries:
-<br>
-1) <b>Pragmatic queries</b> like resume building tips, weather and time checking. These queries are mostly short (one sentence only). It usually requires the audio model to ask more about the context to provide a personalized response.
-<br>
-2) <b>Knowledge expansion</b> questions like asking about theory of relativity. These queries need the audio model to be well equipped with a diverse and comprehensive knowledge base to provide factual and detailed information across a wide range of topics.
-<br>
-3) <b>Personal sharing</b> on recent dilemma, personal opinions and habits. These queries are often longer and more elaborated. To provide good responses, the voice assistant may need to make inferences about the users' tone and capture details well enough.
-<br><br>
-<b>Difference from text queries.</b> 
-<br>
-Unlike how users interact with text-only LLMs through typing, we found some unique aspects in speech interaction:
-<br>
-1) <b>Background noises</b> such as conversations in crowded or outdoor settings. This brings about new challenges for AI models, as they need to effectively process spoken input while distinguishing the user's voice from surrounding noises to ensure accurate interpretation and seamless interaction.
-<br>
-2) <b>Vocal cues</b> like pauses, laghter, tone, pitch, and accent. These features deliver social information about the speaker's emotion and identity beyond words.
-
-</p>
-            </div>
-
-
-
-          </div>
-	</div>
-	
-
-        
-      </div>
-    </section>
-
-<section class="section" style="background-color:#ffffff">
-    <div class="container is-max-desktop">
-      <!-- Abstract. -->
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-six-fifths">
-          <h2 class="title is-3">Ethics and Disclosure</h2>
-          <div class="content has-text-justified">
-            This study has been approved by the Institutional Review Board (IRB) at the researchers' institution, and we obtained participant consent with a standard institutional consent form.
-  
-          </div>
-        </div>
-      </div>
-        
-    </div>
-  </section>
-    
-    <section class="section" id="BibTeX" style="background-color:#fafaf9">
-      <div class="container is-max-desktop content">
-	<h2 class="title">BibTeX</h2>
-	<pre><code>
+         </div>
+      </section>
+      <section class="section" id="BibTeX" style="background-color:#fafaf9">
+         <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+            <pre><code>
     @misc{li2024talkarena,
       title={Talk Arena: Interactive Evaluation of Large Audio Models}, 
       author={Minzhi Li and Will Held and Michael Ryan and Hao Zhu and Diyi Yang},
       year={2024}
     }
 	</code></pre>
-      </div>
-    </section>
-
-
-    <footer class="footer">
-      <div class="container">
-	<div class="columns is-centered">
-	  <div class="column is-8">
-            <div class="content">
-	      <p> We appreciate the computing support provided by <a href="https://hai.stanford.edu/call-google-cloud-credit-proposals">Stanford HAI Google Cloud Credit Program</a>
-	      
-              <p>
-		This website is licensed under a <a rel="license"
-                                                    href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-		  Commons Attribution-ShareAlike 4.0 International License</a>.
-              </p>
-              <p>
-		The source code of this website is borrowed from <a
-								    href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
-              </p>
+         </div>
+      </section>
+      <footer class="footer">
+         <div class="container">
+            <div class="columns is-centered">
+               <div class="column is-8">
+                  <div class="content">
+                     <p> We appreciate the computing support provided by <a href="https://hai.stanford.edu/call-google-cloud-credit-proposals">Stanford HAI Google Cloud Credit Program</a>
+                     <p>
+                        This website is licensed under a <a rel="license"
+                           href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                        Commons Attribution-ShareAlike 4.0 International License</a>.
+                     </p>
+                     <p>
+                        The source code of this website is borrowed from <a
+                           href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+                     </p>
+                  </div>
+               </div>
             </div>
-	  </div>
-	</div>
-      </div>
-    </footer>
-
-  </body>
+         </div>
+      </footer>
+   </body>
 </html>
